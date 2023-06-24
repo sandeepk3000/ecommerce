@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+header {
+  background-color: blueviolet;
+  padding: 0 1rem;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  height: 6rem;
+  justify-content: space-between;
+}
+header nav a {
+  color: white;
+  font-size: 1.3rem;
+}
+header nav .logo {
+  font-size: 2.2rem;
+}
+header nav .logo h1 {
+  color: red;
+}
+header nav .logo h1 span {
+  color: white;
+}
+header nav .search_bar input {
+  outline: none;
+  border: none;
+  width: 20rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 1.3rem;
+  border-radius: 5rem;
+}
+header nav img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+}
+header nav ul {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+header nav .custom-btn {
+  background-color: #4fb06d;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.carousel_hero {
+  padding: 3rem 1rem 0 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.categories_wrapper {
+  position: relative;
+  padding: 2rem;
+  border: 1px solid #dad9db;
+  border-radius: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+.categories_wrapper h2 {
+  position: absolute;
+  top: -13.91px;
+  text-align: center;
+  background-color: white;
+  padding: 0.5rem;
+}
+
+.products_categories {
+  width: 100%;
+  padding: 1rem;
+}
+.products_categories .categories_wrapper-2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+}
+.products_categories .categories_wrapper-2 .book-card {
+  width: 25rem;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 1px 3px 16px -5px #dad9db;
+  background-color: #fff;
+}
+.products_categories .categories_wrapper-2 .book-card .b-img {
+  height: 70%;
+}
+.products_categories .categories_wrapper-2 .book-card .b-img img {
+  width: 100%;
+  height: 100%;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content {
+  height: 30%;
+  padding: 1rem;
+  text-align: center;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content h3 {
+  margin-top: 1rem;
+  color: #2a363b;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content .price {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  color: #474747;
+  opacity: 0.4;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content .price span {
+  position: relative;
+  font-size: 1.7rem;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content .price span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0.2rem;
+  background-color: rgb(0, 0, 0);
+  top: 50%;
+  left: 0;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content .card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.2rem;
+}
+.products_categories .categories_wrapper-2 .book-card .b-content .card-btn .custom-btn {
+  background-color: #4fb06d;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}/*# sourceMappingURL=home.css.map */
