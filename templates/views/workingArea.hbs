@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="publishing-area">
+        <form action="/bookStore/operations" enctype="multipart/form-data" method="post">
+            <input type="text" name="book" placeholder="book.." required autocomplete="off">
+            <input type="file" name="img" placeholder="choose image.." required autocomplete="off">
+            <input type="text" name="author" placeholder="author.." required autocomplete="off">
+            <input type="date" name="publishingdate" placeholder="date.." required autocomplete="off">
+            <input type="text" name="publisher" placeholder="publisher.." required autocomplete="off">
+            <input type="text" name="edition" placeholder="edition.." required autocomplete="off">
+            <input type="text" name="nopage" placeholder="pages.." required autocomplete="off">
+            <input type="text" name="language" placeholder="language.." required autocomplete="off">
+            <button type="submit">Publish</button>
+        </form>
+    </div>
+</body>
+</html>

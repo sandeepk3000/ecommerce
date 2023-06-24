@@ -4,21 +4,25 @@ const Book = require("../models/book.store.model")
 
 const pubLishBook = async (req, res) => {
     try {
-        console.log(req.body);
-        const { title, discription, rating, imgUrl, likes, disLikes } = req.body;
+        const {originalname}=req.file
+        const { book, author, publishingdate,publisher,edition,nopage,language } = req.body;
         const thisBookPubLished = await Book.create({
-            title: title,
-            discription: discription,
-            imgUrl: imgUrl,
-            rating: rating,
-            likes: likes,
-            disLikes: disLikes
+            title: book,
+            // discription: discription,
+            imgUrl: originalname,
+            publishingdate:publishingdate ,
+            author:author,
+            publisher:publisher,
+            edition:edition,
+            nopage:nopage,
+            language:language
         });
         res.status(200).json({
             success: true,
             status: 200,
             thisBookPubLished
         })
+        console.log(thisBookPubLished);
     } catch (error) {
         res.status(500).json({
             success: false,
