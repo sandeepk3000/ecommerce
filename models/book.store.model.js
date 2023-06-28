@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const creatStructure = mongoose.Schema({
     title:String ,
     discription:String,
+    category:String,
+    discription:String,
     imgUrl:String ,
     publishingdate:String ,
     author:String,

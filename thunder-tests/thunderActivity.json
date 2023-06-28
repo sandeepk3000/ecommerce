@@ -156,17 +156,35 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/bookStore/operations",
-    "url": "http://localhost:3000/bookStore/operations",
-    "method": "GET",
+    "url": "http://localhost:3000/user/operations/onCart/649a97d44be157b136b9cbfb",
+    "method": "PATCH",
     "sortNum": 0,
     "created": "2023-06-22T09:38:50.568Z",
-    "modified": "2023-06-23T16:53:04.819Z",
+    "modified": "2023-06-27T08:12:17.721Z",
     "headers": [],
     "params": [],
     "body": {
-      "type": "json",
-      "raw": "{\n  \"title\": \"Environmental Studies\",\n  \"discription\": \"for polytechnic\",\n  \"rating\": 4,\n  \"imgUrl\": \"bookStoreprabhu.jpg\",\n  \"likes\":0,\n  \"disLikes\":0\n}",
-      "form": []
+      "type": "formdata",
+      "raw": "",
+      "form": [
+        {
+          "name": "name",
+          "value": "sandeep"
+        },
+        {
+          "name": "email",
+          "value": "geeluck@gmial.com"
+        },
+        {
+          "name": "password",
+          "value": "jdkfajsdkfjasjdkfajsdkfjas"
+        },
+        {
+          "name": "action",
+          "value": "add"
+        }
+      ],
+      "files": []
     },
     "tests": []
   }

@@ -46,15 +46,19 @@ header {
             color: #ffff;
             font-size: 1.3rem;
         }
-        .logo{
+
+        .logo {
             font-size: 2.2rem;
-            h1{
+
+            h1 {
                 color: red;
-                span{
+
+                span {
                     color: white;
                 }
             }
         }
+
         .search_bar {
             input {
                 outline: none;
@@ -79,12 +83,37 @@ header {
             list-style: none;
         }
 
-        .custom-btn {
-            @include custom-btn();
+        
+        .user-icon {
+            overflow: hidden;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .user-status{
+            .login_btn{
+                .custom-btn {
+                    @include custom-btn();
+                }
+            }
+           
+            .user-profile{
+
+            }
+           
         }
     }
 }
-
+.login .user-profile{
+    display: none;
+}
+.loged .login_btn{
+    display: none;
+}
 .carousel_hero {
     padding: 3rem 1rem 0 1rem;
     margin-bottom: 2.5rem;
@@ -141,7 +170,7 @@ header {
                 h3 {
                     margin-top: 1rem;
                     color: #2a363b;
-                    
+
 
                 }
 

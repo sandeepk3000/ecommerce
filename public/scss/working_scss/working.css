@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+}
+
+.input-area {
+  padding: 2rem;
+  margin: auto;
+}
+.input-area form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 35rem;
+}
+.input-area form input {
+  margin-bottom: 1.5rem;
+  min-width: 12rem;
+  max-width: 35rem;
+  height: 2.5rem;
+  font-size: 1.4rem;
+  padding: 0 1rem;
+  border: 0.01rem solid #dfdfdf;
+  border-radius: 0.5rem;
+  outline-color: green;
+}
+.input-area form input button {
+  width: 15rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: red;
+  border: none;
+  color: white;
+  border-radius: 2rem;
+  cursor: pointer;
+  margin: auto;
+}/*# sourceMappingURL=working.css.map */

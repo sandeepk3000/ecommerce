@@ -1,24 +1,33 @@
-<header>
-    <nav>
-      <div class="logo">
-        <h1>Book <span>Store</span></h1>
-      </div>
-      <div class="search_bar">
-        <input type="text" placeholder="Search...">
-      </div>
-      <ul>
-        <a href="">
-          <li>home</li>
-        </a>
-        <a href="">
-          <li>Contact Us</li>
-        </a>
-        <a href="">
-          <li>Project List</li>
-        </a>
-      </ul>
+<header class="{{data.loginStatus}}" id="header">
+  <nav>
+    <div class="logo">
+      <h1>Book <span>Store</span></h1>
+    </div>
+    <div class="search_bar">
+      <input type="text" placeholder="Search...">
+    </div>
+    <ul>
+      <a href="/singleDas?cat=Science">
+        <li>Science</li>
+      </a>
+      <a href="/singleDas?cat=History">
+        <li>History</li>
+      </a>
+      <a href="/singleDas?cat=Math">
+        <li>Math</li>
+      </a>
+    </ul>
+    <div class="user-status">
       <div class="login_btn">
-        <a href="" class="custom-btn">Login</a>
+        <a href="/login" class="custom-btn">Login</a>
       </div>
-    </nav>
-  </header>
+     {{!-- {{#each data}} --}}
+      <div class="user-profile">
+        <img src="/img/hanuman (2).jpg" alt="">
+        <h2>{{data._doc.name}}</h2>
+      </div>
+     {{!-- {{/each}} --}}
+    </div>
+
+  </nav>
+</header>
