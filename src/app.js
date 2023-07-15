@@ -10,6 +10,7 @@ const viewsPath = path.join(__dirname, "../templates/views")
 const partialsPath = path.join(__dirname, "../templates/partials")
 const errorHandler = require("../middlewares/errorHandling");
 const authChecker = require("../middlewares/authChecker");
+const payNow = require("../controllers/payment");
 app.use(express.static(public_path));
 app.set("view engine", "hbs");
 app.set("views", viewsPath)
@@ -28,11 +29,12 @@ app.get("/single",authChecker,(req, res) => {
         data:req.data
     })
 })
+app.post("/pay",payNow)
 app.get("/payment",(req,res)=>{
     res.render("checkout")
 })
 app.get("/",authChecker, (req, res) => {
-    console.log(req.data);
+    console.log();
     res.render("home",{
         data:req.data
     });
@@ -42,6 +44,11 @@ app.get("/login",(req,res)=>{
 })
 app.get("/singleProducts",authChecker,(req,res)=>{
     res.render("singleProducts",{
+        data:req.data
+    })
+})
+app.get("/addToCart",authChecker,(req,res)=>{
+    res.render("addToCart",{
         data:req.data
     })
 })

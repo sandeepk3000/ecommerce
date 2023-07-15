@@ -4,16 +4,16 @@
       <h1>Book <span>Store</span></h1>
     </div>
     <div class="search_bar">
-      <input type="text" placeholder="Search...">
+      <input class="search" type="text" placeholder="Search...">
     </div>
     <ul>
-      <a href="/singleDas?cat=Science">
+      <a href="/singleProducts?cat=Science">
         <li>Science</li>
       </a>
-      <a href="/singleDas?cat=History">
+      <a href="/singleProducts?cat=History">
         <li>History</li>
       </a>
-      <a href="/singleDas?cat=Math">
+      <a href="/singleProducts?cat=Math">
         <li>Math</li>
       </a>
     </ul>
@@ -21,12 +21,15 @@
       <div class="login_btn">
         <a href="/login" class="custom-btn">Login</a>
       </div>
-     {{!-- {{#each data}} --}}
-      <div class="user-profile">
-        <img src="/img/hanuman (2).jpg" alt="">
-        <h2>{{data._doc.name}}</h2>
+      <div class="user-profile" style="display: flex;">
+        <div class="userCart">
+          <span class="cartItems">{{data._doc.userCart.length}}</span>
+        </div>
+        <div class="userLogo">
+          <img src="/img/hanuman (2).jpg" alt="">
+          <h2 >{{data._doc.name}}</h2>
+        </div>
       </div>
-     {{!-- {{/each}} --}}
     </div>
 
   </nav>

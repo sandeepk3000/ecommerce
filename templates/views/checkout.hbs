@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/scss/checkout_scss/checkout.css" />
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="/js/checkout.js" defer></script>
   </head>
   <body>
     <!-- Display a payment form -->
-    <form id="payment-form">
+    {{!-- <form id="payment-form">
       <div id="link-authentication-element">
         <!--Stripe.js injects the Link Authentication Element-->
       </div>
@@ -23,6 +22,12 @@
         <span id="button-text">Pay now</span>
       </button>
       <div id="payment-message" class="hidden"></div>
-    </form>
+    </form> --}}
+    <script>
+
+      const stripe = Stripe("pk_test_51NNH3OSCI5qRRjQx1cj3ewMSMaJOryP8xrDqDuecVvC6ezgj57TOTo3vlthLjmv2ddv9pVjEZ7yC448HUkZrJF3i00NomjSQq4")
+      const stripe = stripe.elements()
+      console.log(stripe)
+    </script>
   </body>
 </html>

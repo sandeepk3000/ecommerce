@@ -18,6 +18,15 @@ html {
     align-items: center;
 }
 
+// .custom_srcollbar::-webkit-scrollbar{
+//    width: 8px;
+// }
+// .custom_srcollbar::-webkit-scrollbar-track{
+//    visibility:hidden;
+// }
+// .custom_srcollbar::-webkit-scrollbar-thumb{
+//     visibility:hidden ;
+//  }
 @mixin custom-btn {
     background-color: #4fb06d;
     padding: 0.5rem 1.5rem;
@@ -30,6 +39,10 @@ html {
 a {
     text-decoration: none;
     color: rgb(0, 0, 0);
+}
+
+ol {
+    list-style: none;
 }
 
 header {
@@ -83,37 +96,66 @@ header {
             list-style: none;
         }
 
-        
+
         .user-icon {
             overflow: hidden;
             width: 4rem;
             height: 4rem;
             border-radius: 50%;
+
             img {
                 height: 100%;
                 width: 100%;
             }
         }
-        .user-status{
-            .login_btn{
+
+        .user-status {
+            .login_btn {
                 .custom-btn {
                     @include custom-btn();
                 }
             }
-           
-            .user-profile{
 
+            .user-profile {
+                // @include displayFlex();
+                justify-content: center;
+                gap: 2rem;
+
+                .userCart {
+                    position: relative;
+                    /* margin-right: 10rem; */
+                    width: 3rem;
+                    height: 3rem;
+                    background-color: red;
+                    border-radius: 50%;
+
+                    h3 {
+                        font-size: 1.3rem;
+                        position: absolute;
+                        text-align: center;
+                        top: -2px;
+                        left: 18px;
+                        background-color: rgb(255, 255, 255);
+                        border-radius: 50%;
+                        width: 1.6rem;
+                        height: 1.6rem;
+                        border: 1.8px solid blueviolet;
+                    }
+                }
             }
-           
+
         }
     }
 }
-.login .user-profile{
+
+.login .user-profile {
+   display: none;
+}
+
+.loged .login_btn {
     display: none;
 }
-.loged .login_btn{
-    display: none;
-}
+
 .carousel_hero {
     padding: 3rem 1rem 0 1rem;
     margin-bottom: 2.5rem;
@@ -125,7 +167,9 @@ header {
     border: 1px solid #dad9db;
     border-radius: .5rem;
     margin-bottom: 2.5rem;
-
+    @include displayFlex();
+    justify-content: center;
+    gap: 1.6rem;
 
     h2 {
         position: absolute;
@@ -140,75 +184,127 @@ header {
     width: 100%;
     padding: 1rem;
 
-    .categories_wrapper-2 {
-        @include displayFlex();
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.6rem;
+    .categoriesWrapperS {
+        .cards {
+            position: relative;
+            width: 100%;
+            height: 100%;
 
-        .book-card {
-            width: 25rem;
-            height: auto;
-            border-radius: .5rem;
-            box-shadow: 1px 3px 16px -5px #dad9db;
-            background-color: #fff;
+            .card_container {
+                display: grid;
+                place-items: center;
+                overflow-x: hidden;
+                position: relative;
+                width: auto;
+                height: 60rem;
+                gap: 2rem;
+                justify-content: center;
 
-            .b-img {
-                height: 70%;
+                .book-card {
+                    width: 25rem;
+                    height: auto;
+                    position: absolute;
+                    flex-shrink: 0;
+                    border-radius: 0.5rem;
+                    box-shadow: 1px 3px 16px -5px #dad9db;
+                    background-color: #fff;
 
-                img {
-                    width: 100%;
-                    height: 100%;
+                    .b-img {
+                        height: 70%;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    .b-content {
+                        height: 30%;
+                        padding: 1rem;
+                        text-align: center;
+
+                        h3 {
+                            margin-top: 1rem;
+                            color: #2a363b;
+
+
+                        }
+
+                        .price {
+                            font-size: 2.3rem;
+                            font-weight: 700;
+                            margin-top: .6rem;
+                            color: #474747;
+                            opacity: .4;
+
+                            span {
+                                position: relative;
+                                font-size: 1.7rem;
+                            }
+                        }
+
+                        .price span::after {
+                            content: "";
+                            position: absolute;
+                            width: 100%;
+                            height: .2rem;
+                            background-color: rgb(0, 0, 0);
+                            top: calc(100% - 50%);
+                            left: 0;
+                        }
+
+                        .card-btn {
+                            @include displayFlex();
+                            justify-content: center;
+                            gap: 2rem;
+                            margin-top: 1.2rem;
+
+                            .custom-btn {
+                                @include custom-btn();
+                            }
+                        }
+                    }
                 }
+
+
             }
 
-            .b-content {
-                height: 30%;
-                padding: 1rem;
-                text-align: center;
+            .indicator_contianer {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                display: flex;
+                top: 0;
+                left: 0;
 
-                h3 {
-                    margin-top: 1rem;
-                    color: #2a363b;
+                .card_move_btn {
 
-
+                    border: none;
+                    width: 3rem;
+                    height: 3rem;
+                    color: white;
+                    border-radius: 50%;
+                    background-color: #2196F3;
                 }
 
-                .price {
-                    font-size: 2.3rem;
-                    font-weight: 700;
-                    margin-top: .6rem;
-                    color: #474747;
-                    opacity: .4;
-
-                    span {
-                        position: relative;
-                        font-size: 1.7rem;
-                    }
+                .left_move {
+                    margin: auto 0 auto 16px;
                 }
 
-                .price span::after {
-                    content: "";
-                    position: absolute;
-                    width: 100%;
-                    height: .2rem;
-                    background-color: rgb(0, 0, 0);
-                    top: calc(100% - 50%);
-                    left: 0;
-                }
-
-                .card-btn {
-                    @include displayFlex();
-                    justify-content: center;
-                    gap: 2rem;
-                    margin-top: 1.2rem;
-
-                    .custom-btn {
-                        @include custom-btn();
-                    }
+                .right_move {
+                    margin: auto 16px auto auto;
                 }
             }
         }
-    }
 
+
+
+    }
+}
+
+.categoriesWrapperF {
+    .carouselCard {
+        width: 30rem;
+        margin-bottom: 2rem
+    }
 }

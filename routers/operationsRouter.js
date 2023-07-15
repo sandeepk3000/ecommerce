@@ -6,5 +6,5 @@ router.route("/").get(getBookStore);
 router.route("/:query").get(getSingleBook)
 router.route("/").post(upload.single('img'),pubLishBook);
 router.route("/create-payment-intent").post(paymentsNow)
-router.route("/singleProducts").get(getBookStore)
+router.route("/singleProducts/:query").get(getBookStore)
 module.exports = router;

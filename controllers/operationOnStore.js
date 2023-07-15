@@ -25,8 +25,15 @@ const pubLishBook = asyncWrapper(async (req, res) => {
 });
 
 const getBookStore = asyncWrapper(async (req, res) => {
-    const books = await Book.find({})
-    console.log("getStroe");
+    const category = req.params.query || null;
+    let books;
+    if (category) {
+        console.log(category);
+        books = await Book.find({ category: category })
+    } else {
+        console.log(category);
+        books = await Book.find({})
+    }
     res.status(200).json({
         success: true,
         status: 200,

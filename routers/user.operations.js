@@ -4,5 +4,6 @@ const {myCart,loginOnStore,likeAndDisLikeOnProducts,getUser}=require("../control
 router.route("/login").post(loginOnStore);
 router.route("/:query").patch(likeAndDisLikeOnProducts);
 router.route("/onCart/:query").patch(myCart)
+router.route("/onCart").get(myCart)
 router.route("/:query").get(getUser)
 module.exports=router;

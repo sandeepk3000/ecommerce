@@ -14,6 +14,10 @@ a {
   color: rgb(0, 0, 0);
 }
 
+ol {
+  list-style: none;
+}
+
 header {
   background-color: blueviolet;
   padding: 0 1rem;
@@ -76,6 +80,31 @@ header nav .user-status .login_btn .custom-btn {
   font-size: 1.2rem;
   font-weight: 600;
 }
+header nav .user-status .user-profile {
+  justify-content: center;
+  gap: 2rem;
+}
+header nav .user-status .user-profile .userCart {
+  position: relative;
+  /* margin-right: 10rem; */
+  width: 3rem;
+  height: 3rem;
+  background-color: red;
+  border-radius: 50%;
+}
+header nav .user-status .user-profile .userCart h3 {
+  font-size: 1.3rem;
+  position: absolute;
+  text-align: center;
+  top: -2px;
+  left: 18px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1.8px solid blueviolet;
+}
+
 .login .user-profile {
   display: none;
 }
@@ -95,6 +124,10 @@ header nav .user-status .login_btn .custom-btn {
   border: 1px solid #dad9db;
   border-radius: 0.5rem;
   margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
 }
 .categories_wrapper h2 {
   position: absolute;
@@ -108,48 +141,58 @@ header nav .user-status .login_btn .custom-btn {
   width: 100%;
   padding: 1rem;
 }
-.products_categories .categories_wrapper-2 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.6rem;
+.products_categories .categoriesWrapperS .cards {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-.products_categories .categories_wrapper-2 .book-card {
+.products_categories .categoriesWrapperS .cards .card_container {
+  display: grid;
+  place-items: center;
+  overflow-x: hidden;
+  position: relative;
+  width: auto;
+  height: 60rem;
+  gap: 2rem;
+  justify-content: center;
+}
+.products_categories .categoriesWrapperS .cards .card_container .book-card {
   width: 25rem;
   height: auto;
+  position: absolute;
+  flex-shrink: 0;
   border-radius: 0.5rem;
   box-shadow: 1px 3px 16px -5px #dad9db;
   background-color: #fff;
 }
-.products_categories .categories_wrapper-2 .book-card .b-img {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-img {
   height: 70%;
 }
-.products_categories .categories_wrapper-2 .book-card .b-img img {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-img img {
   width: 100%;
   height: 100%;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content {
   height: 30%;
   padding: 1rem;
   text-align: center;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content h3 {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content h3 {
   margin-top: 1rem;
   color: #2a363b;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content .price {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content .price {
   font-size: 2.3rem;
   font-weight: 700;
   margin-top: 0.6rem;
   color: #474747;
   opacity: 0.4;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content .price span {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content .price span {
   position: relative;
   font-size: 1.7rem;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content .price span::after {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content .price span::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -158,18 +201,45 @@ header nav .user-status .login_btn .custom-btn {
   top: 50%;
   left: 0;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content .card-btn {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content .card-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
   margin-top: 1.2rem;
 }
-.products_categories .categories_wrapper-2 .book-card .b-content .card-btn .custom-btn {
+.products_categories .categoriesWrapperS .cards .card_container .book-card .b-content .card-btn .custom-btn {
   background-color: #4fb06d;
   padding: 0.5rem 1.5rem;
   text-align: center;
   color: white;
   font-size: 1.2rem;
   font-weight: 600;
+}
+.products_categories .categoriesWrapperS .cards .indicator_contianer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+}
+.products_categories .categoriesWrapperS .cards .indicator_contianer .card_move_btn {
+  border: none;
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  border-radius: 50%;
+  background-color: #2196F3;
+}
+.products_categories .categoriesWrapperS .cards .indicator_contianer .left_move {
+  margin: auto 0 auto 16px;
+}
+.products_categories .categoriesWrapperS .cards .indicator_contianer .right_move {
+  margin: auto 16px auto auto;
+}
+
+.categoriesWrapperF .carouselCard {
+  width: 30rem;
+  margin-bottom: 2rem;
 }/*# sourceMappingURL=home.css.map */

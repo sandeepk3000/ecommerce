@@ -39,7 +39,7 @@ const setSingleData = async (data) => {
     <div class="sprice">$24.55 <span>$30.5</span></div>
     <div class="sb-btn">
         <a href="" class="custom-btn buy-btn">Buy</a>
-        <a href="" class="custom-btn add-to-cart">Add to cart</a>
+        <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
     </div>
     <div class="highlights">
         <h3>Highlights</h3>
@@ -58,4 +58,5 @@ const setSingleData = async (data) => {
 </div>
     `
     product_single.innerHTML = singleBook
+    addToCart()
 }

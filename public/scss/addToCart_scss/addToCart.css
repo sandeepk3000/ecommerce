@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.cartProducts-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+  margin: 2rem;
+}
+.cartProducts-wrapper .products .book-card {
+  margin: 1.5rem 0rem;
+  width: 30rem;
+  height: auto;
+  display: flex;
+  border-radius: 0.5rem;
+  box-shadow: 1px 3px 16px -5px #dad9db;
+  background-color: #fff;
+}
+.cartProducts-wrapper .products .book-card .product_quantity .b-img {
+  height: auto;
+}
+.cartProducts-wrapper .products .book-card .product_quantity .b-img img {
+  width: 100%;
+  height: 100%;
+}
+.cartProducts-wrapper .products .book-card .product_quantity .quantity {
+  height: auto;
+  display: grid;
+  place-items: center;
+}
+.cartProducts-wrapper .products .book-card .product_quantity .quantity div {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+.cartProducts-wrapper .products .book-card .product_quantity .quantity div i {
+  background-color: #ffffff;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 1.3rem;
+  font-weight: 500;
+  box-shadow: 1px 1px 7px -3px black;
+  cursor: pointer;
+}
+.cartProducts-wrapper .products .book-card .b-content {
+  height: 30%;
+  padding: 1rem;
+  text-align: center;
+}
+.cartProducts-wrapper .products .book-card .b-content h3 {
+  margin-top: 1rem;
+  color: #2a363b;
+}
+.cartProducts-wrapper .products .book-card .b-content .price {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  color: #474747;
+  opacity: 0.4;
+}
+.cartProducts-wrapper .products .book-card .b-content .price span {
+  position: relative;
+  font-size: 1.7rem;
+}
+.cartProducts-wrapper .products .book-card .b-content .price span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0.2rem;
+  background-color: rgb(0, 0, 0);
+  top: 50%;
+  left: 0;
+}
+.cartProducts-wrapper .products .book-card .b-content .card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.2rem;
+}
+.cartProducts-wrapper .products .book-card .b-content .card-btn .custom-btn {
+  background-color: #4fb06d;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}/*# sourceMappingURL=addToCart.css.map */
