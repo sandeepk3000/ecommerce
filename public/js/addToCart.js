@@ -1,91 +1,125 @@
 
-
 const cartItemsBuy = document.querySelector(".cartItemsBuy")
 const quantityShow = document.querySelector(".quantityShow")
-const products = document.querySelector(".products")
+const products = document.querySelector("#products")
+setEvents("#placeOrder", "click", orderPlace)
+setEvents(".search", "keypress", inputSearch)
+let userId = "651ad4be945a5bf1c96b5322"
 const getCartData = async () => {
-    try {
-        const res = await fetch(`/user/operations/onCart`, { method: "GET" })
-        setCartData(res)
-    } catch (error) {
-
-    }
-
+    // const { isAuthenticated, user } = await isUserLogged(token)
+    // userId = user._id
+    const url = `/account/onCart/${userId}`
+    // console.log(user._id);
+    const res = await fetch(url, {
+        method: "GET",
+    }).then(function (response) {
+        return response.json()
+    }).then(function (data) {
+        return data
+    }).catch(function (error) {
+        return { message: "Item not found", status: false }
+    })
+    // if (user.cart.length === 0) {
+    //     return
+    // }
+    setCartData(res)
 }
+
+getCartData()
 const serverCallForCart = async (action, productId) => {
     console.log(action, productId);
-    let jsonRes;
-    try {
-        res = await fetch(`/user/operations/onCart/${action}&&${productId}`, { method: "PATCH" })
-        jsonRes = await res.json()
-    } catch (error) {
-        jsonRes = {
-            error
+
+    return await fetch(`/account/onCart/${userId}`, {
+        method: "PATCH",
+        body: JSON.stringify({ action: action, productId: productId }),
+        headers: {
+            "Content-Type": "application/json"
         }
-    }
-    return jsonRes
+    }).then(function (response) {
+        return response.json()
+    }).then(function (data) {
+        return data
+    }).catch(function (error) {
+        return { message: "Item not found", }
+    })
 }
 
 let price = 35;
-const intialization = () => {
-    const quantityInc = document.querySelectorAll(".quantityInc")
-    const quantityDcr = document.querySelectorAll(".quantityDcr")
-    const quantityShow = document.querySelectorAll(".quantityShow")
-    let items_price = document.querySelectorAll(".items-price")
-    const itemPrice = document.querySelectorAll(".itemPrice")
-    const remove_form_cart = document.querySelectorAll(".remove-form-cart")
-    const removeOf = document.querySelectorAll(".book-card")
-    console.log(itemPrice);
-    console.log(items_price);
-    setEventsOn({ quantityDcr, quantityInc, itemPrice, remove_form_cart, removeOf })
-}
-const inProductQuantity = async (removeOf, action, event, elements, itemPrice) => {
-    // console.log(removeOf, action, event,elements,items_price,itemPrice);
-    let items_price = document.querySelectorAll(".items-price")
-    let targetIndex = Array.prototype.indexOf.call(elements, event.target);
-    const productId = removeOf[targetIndex].getAttribute("id")
-    try {
-        let quantity = parseInt(event.target.parentElement.children[1].innerHTML)
-        const { updateUserRes } = await serverCallForCart(action, productId)
-        if (updateUserRes.modifiedCount === 1 && action === "quantityInc") {
-            quantity = ++quantity;
-            event.target.parentElement.children[1].innerHTML = quantity
 
-        }
-        if (updateUserRes.modifiedCount === 1 && action === "quantityDcr") {
-            quantity = --quantity;
-            event.target.parentElement.children[1].innerHTML = quantity
-
-        }
-        if (updateUserRes.productAcctive === false) {
-            removeOf[targetIndex].remove()
-            totalCartPrice(document.querySelectorAll(".items-price"))
-            return
-        }
-        totalSinglePrice(itemPrice, quantity, targetIndex, items_price)
-        totalCartPrice(items_price)
-    } catch (error) {
-        console.log(error);
+async function quantityController(event) {
+    console.log(event.target);
+    console.log(isButtonDisabled);
+    let target = event.target
+    let productId = target.closest(".book-card").getAttribute("id");
+    let itemPriceDiv = target.closest(".book-card").querySelector(".itemPrice")
+    let unitPrice = parseInt(itemPriceDiv.textContent.split("$")[1])
+    if (target.classList.contains("quantityInc") && !isButtonDisabled) {
+        isButtonDisabled = true
+        const { message, status } = await serverCallForCart("quantityInc", productId)
+        isButtonDisabled = status ? false : true
+        const quantitySpan = target.parentElement.querySelector(".quantityShow")
+        let currentQuantity = parseInt(quantitySpan.textContent)
+        quantitySpan.textContent = ++currentQuantity
+        priceController(target, unitPrice, currentQuantity)
     }
-    // console.log(quantity);
+    if (target.classList.contains("quantityDcr") && !isButtonDisabled) {
+        isButtonDisabled = true
+        const quantitySpan = target.parentElement.querySelector(".quantityShow")
+        let currentQuantity = parseInt(quantitySpan.textContent)
+        if (currentQuantity > 1) {
+            const { message, status } = await serverCallForCart("quantityDcr", productId)
+            isButtonDisabled = status ? false : true
+            quantitySpan.textContent = --currentQuantity
+            priceController(target, unitPrice, currentQuantity)
+        }
+    }
+    if (target.classList.contains("remove-form-cart-btn") && !isButtonDisabled) {
+        isButtonDisabled = true
+        const action = "removeFromCart"
+        const { message, status } = await serverCallForCart(action, productId)
+        isButtonDisabled = status ? false : true
+        cartQuantity("remove", userId)
+        target.closest(".book-card").remove()
+    } else {
+        isButtonDisabled = false
+    }
+
 }
-getCartData()
+function priceController(target, unitPrice, quantity) {
+    if (!(unitPrice && quantity && target)) {
+        return
+    }
+    let totalPrice = 0;
+    let singleTotalSpan = target.closest(".book-card").querySelector(".items-price")
+    singleTotalSpan.textContent = (unitPrice * quantity).toLocaleString()
+    const singleTotalSpans = document.querySelectorAll(".items-price")
+    totalPrice = Array.from(singleTotalSpans).reduce(function (sum, element) {
+        return sum + parseInt(element.textContent.replace(/,/g, ""))
+    }, 0)
+    const priceTd = document.querySelector(".total_price")
+    console.log(totalPrice);
+    priceTd.textContent = totalPrice.toLocaleString()
+    // document.querySelector(".discount").textContent = `-${quantity * discount}`
+}
+
+
 
 const setCartData = async function (data) {
-    const { updateUserRes } = await data.json()
-    const [{ cartProducts, quantity }] = updateUserRes
-    quantity.reduce((products, { productId, ...data }) => {
-        const modifyObj = products.find((obj) => obj._id === productId);
-        if (modifyObj) {
-            Object.assign(modifyObj, data)
+    let totalAmount = 0;
+    const { cartProducts, cartQuantities } = data
+    cartQuantities.reduce((products, { productID, quantity }) => {
+        console.log(quantity);
+        const matchProduct = products.find((product) => product._id === productID);
+        if (matchProduct) {
+            Object.assign(matchProduct, { quantity: quantity })
         }
         return cartProducts
     }, cartProducts).map((cartProduct) => {
-        console.log(cartProduct.imgUrl);
+        totalAmount += (cartProduct.quantity * price)
         let product = ` <div class="book-card" id=${cartProduct._id}>
         <div class="product_quantity">
             <div class="b-img">
-                <img src="/products_img/${cartProduct.imgUrl}" alt="">
+                <img src="/products_img/${cartProduct.image}" alt="">
             </div>
             <div class="quantity">
                 <div>
@@ -97,70 +131,21 @@ const setCartData = async function (data) {
         </div>
         <div class="b-content">
             <h3>Nutan book</h3>
-            <div class="itemPrice">$${price}</div>
+            <div class="itemPrice">$${price.toLocaleString()}</div>
             <div class="card-btn">
                 <a href="" class="custom-btn buy-btn">Buy</a>
-                <a href="" class="custom-btn remove-form-cart">Remove</a>
+                <a href="" class="custom-btn remove-form-cart-btn">Remove</a>
             </div>
-            <div class="totalItemsPrice"> <label for="">Total Price <span class="items-price">${cartProduct.quantity * price}</span></label></div>
+            <div class="totalItemsPrice"> <label for="">Total Price <span class="items-price">${(cartProduct.quantity * price).toLocaleString()}</span></label></div>
         </div>
     </div> `
         products.innerHTML += product
     })
-    intialization()
-    totalCartPrice(document.querySelectorAll(".items-price"))
+    const priceTd = document.querySelector(".total_price")
+    priceTd.textContent = totalAmount.toLocaleString()
+    setEvents("#products", "click", quantityController)
 }
-
-const totalSinglePrice = (itemPrice, quantity, targetIndex, items_price) => {
-    const singlePrice = parseInt(itemPrice[targetIndex].innerHTML.split("$")[1])
-    let totalPrice = singlePrice * quantity;
-    items_price[targetIndex].innerHTML = totalPrice
+function orderPlace(event) {
+    localStorage.setItem("productInfo", JSON.stringify({ productId: "allCartId", type: "cart" }))
+    location.href = "/paymentInterface?type=cart"
 }
-const totalCartPrice = (itemPrice) => {
-    let totalPrice = Array.from(itemPrice).reduce((currentValue, element) => {
-        return parseFloat(element.innerHTML) + currentValue;
-    }, 0)
-    cartItemsBuy.innerHTML = totalPrice
-    console.log(totalPrice);
-}
-
-const setEventsOn = ({ quantityDcr, quantityInc, itemPrice, remove_form_cart, removeOf }) => {
-    quantityDcr.forEach((element) => {
-        element.addEventListener("click", (event) => {
-            const action = "quantityDcr"
-            console.log(removeOf, action, event, quantityDcr, itemPrice);
-            inProductQuantity(removeOf, action, event, quantityDcr, itemPrice)
-        })
-    })
-    quantityInc.forEach((element) => {
-        element.addEventListener("click", (event) => {
-            const action = "quantityInc"
-            inProductQuantity(removeOf, action, event, quantityInc, itemPrice)
-        })
-    })
-    remove_form_cart.forEach((element) => {
-        element.addEventListener("click", async (event) => {
-            try {
-                event.preventDefault()
-                const action = "removeFromCart";
-                let index = Array.prototype.indexOf.call(remove_form_cart, event.target)
-                const productId = removeOf[index].getAttribute("id")
-                const { updateUserRes } = await serverCallForCart(action, productId)
-                if (updateUserRes.productAcctive === false) {
-                    removeOf[index].remove()
-                    const inCartItems = document.querySelector(".cartItems")
-                    if(parseInt(inCartItems.innerHTML)>=1){
-                        inCartItems.innerHTML=parseInt(inCartItems.innerHTML)-1;
-                    }
-                    let items_price = document.querySelectorAll(".items-price")
-                    console.log(items_price);
-                    totalCartPrice(items_price)
-                }
-                intialization()
-            } catch (error) {
-
-            }
-        })
-    })
-}
-// console.log(document.querySelector(".cartItems").innerHTML);

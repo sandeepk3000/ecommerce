@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/scss/paymentInterface/paymentInterface.css">
+    <style>
+        :root {
+            --color-white: #f0f0f0;
+            --color-white-bg: #fff;
+            --color-black: #000;
+            --color-light-black: #172337;
+            --color-border-grey: #e4e7ed;
+            --color-brand-orange: #fb641b;
+            --color-brand-blue: #2874f0;
+            --color-brand-bbd: #2455f4;
+            --color-brand-refurb: #f2575b;
+            --color-brand-footer: #172337;
+            --color-brand-blue-lighter: #7accff;
+            --color-brand-blue-lighter1: #dfeafd;
+            --color-blue-lighter1: #b3d7ff;
+            --color-blue-lighter2: #2370f4;
+            --color-blue-lighter3: #2a55e5;
+            --color-blue-lighter4: #f5f7fa;
+            --color-blue-lighter5: #d5d7db;
+            --color-blue-lighter6: #cfe1ff;
+            --color-blue-lighter7: #f0f5ff;
+            --color-primary-yellow: #ffe11b;
+            --color-primary-yellow2: #f1d27d;
+            --color-yellow-grade1: #fff7e1;
+            --color-yellow-grade2: #fef8e0;
+            --color-purple: #5f4eeb;
+            --color-offer-green: #388e3c;
+            --color-green-grade0: #26a541;
+            --color-green-grade1: #e9f2e9;
+            --color-green-grade2: #e6f4e8;
+            --color-green-grade3: #e6f3e6;
+            --color-green-grade4: #008c00;
+            --color-yellowish-orange: #ff9f00;
+            --color-flash-green: #11c29b;
+            --color-error-red: #ff6161;
+            --color-error-red2: #ff4343;
+            --color-error-red3: #ffeaed;
+            --color-error-red4: #dd5354;
+            --color-error-red5: #d23276;
+            --color-error-red6: #e4001e;
+            --color-error-red7: #e32727;
+            --color-grey-grade0: #fafafa;
+            --color-grey-grade1: #f0f0f0;
+            --color-grey-grade2: #e0e0e0;
+            --color-grey-grade3: #c2c2c2;
+            --color-grey-grade4: #878787;
+            --color-grey-grade5: #212121;
+            --color-grey-grade6: #d7d7d7;
+            --color-grey-grade7: #f9f9f9;
+            --color-grey-grade8: #9e9e9e;
+            --color-grey-grade9: #efefef;
+            --color-grey-grade10: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            letter-spacing: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        .requirement_card {
+            margin-bottom: 1rem;
+            background-color: #efefef;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* width: 100%; */
+            height: min-content;
+            position: relative;
+            box-sizing: border-box
+        }
+
+        /* .requirement_card::after{
+            content: "";
+            width: .2rem;
+            height: 100%;
+            background-color: #5555eb;
+            position: absolute;
+            top: 0;
+            left: 3%;
+        } */
+        .requirement_name {
+            font-size: 1.5rem;
+            font-family: sans-serif;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .requirement_name .step {
+            background-color: #1f88e5;
+            padding: 0.5rem;
+            margin: 1rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .requirement_data {
+            margin: 1rem 0 0 5rem;
+            font-size: 1.3rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .edit_requirement_btn {
+            border: 1px solid #c3c3c3;
+            width: 10rem;
+            height: 3rem;
+            background-color: white;
+            font-size: 1.3rem;
+            color: #5555eb;
+            cursor: pointer;
+        }
+
+        .requirement_info {
+            flex-grow: 1;
+            min-width: 0px;
+            padding: 1.5rem;
+        }
+
+        .destination_edit_wrapper {
+            padding: 16px 24px 12px;
+            background-color: #f5faff;
+            display: block;
+        }
+
+        ._input_field {
+            width: 100%;
+            height: 50px;
+            outline-color: var(--color-blue-lighter2);
+            font-size: 14px;
+            border: 1px solid var(--color-grey-grade2);
+            outline: none;
+            border-radius: 2px;
+            padding: 25px 0 0 15px;
+            box-shadow: none;
+        }
+
+        ._input_label {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform-origin: top left;
+            padding: 9px 0 0 15px;
+            font-size: 14px;
+            color: var(--color-grey-grade4);
+            transition: transform .2s ease;
+        }
+
+        ._input_wrapper {
+            position: relative;
+            margin-bottom: 10px;
+            width: 280px;
+        }
+
+        /*  {
+            display: flex;
+            justify-content: space-between;
+        } */
+
+        .destination_fields {
+            display: grid;
+            place-items: center;
+            font-family: Roboto, Arial, sans-serif;
+            letter-spacing: 0;
+            margin-top: 16px;
+        }
+
+        .address_label {
+            padding: 18px 0 0 15px;
+        }
+
+        #address {
+            height: auto;
+            resize: none;
+        }
+
+        .address_input {
+            flex-grow: 1;
+        }
+
+        .custom_btn_wrapper_1 {
+            width: 280px;
+        }
+
+        .custom_btn_1 {
+            width: 140px;
+            height: 30px;
+            border: none;
+            color: white;
+            background-color: var(--color-brand-orange);
+            cursor: pointer;
+        }
+
+        th {
+            margin-bottom: 1rem;
+        }
+
+        td {
+            margin-bottom: 1rem;
+        }
+
+        .fa-check {
+            visibility: hidden;
+            color: blue;
+        }
+
+        .fa-circle-xmark {
+            color: red;
+            visibility: hidden;
+        }
+
+        .notValid .fa-circle-xmark {
+            visibility: visible;
+        }
+
+        .isValid .fa-check {
+            visibility: visible;
+        }
+
+        .icon {
+            position: relative;
+            margin-left: 16px;
+            text-align: center;
+        }
+
+        .icon i {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="payment_interface">
+            <div class="payment_requirements">
+                <div class="requirement_card">
+                    <div class="requirement_info" data-action="mobileNumber">
+                        <div class="requirement_name">
+                            <span class="step">1</span>LOGIN <span class="icon"><i class="fa-solid fa-check"></i> <i
+                                    class="fa-regular fa-circle-xmark"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="requirement_card">
+                    <div class="requirement_info" data-action="deliveryAddress">
+                        <div class="requirement_name">
+                            <span class="step">1</span>DELIVERY ADDRESS <span class="icon"><i
+                                    class="fa-solid fa-check"></i>
+                                <i class="fa-regular fa-circle-xmark"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="requirement_card">
+                    <div class="requirement_info" data-action="orderSummary">
+                        <div class="requirement_name">
+                            <span class="step">1</span>ORDER SUMMARY <span class="icon"><i
+                                    class="fa-solid fa-check"></i> <i class="fa-regular fa-circle-xmark"></i></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="requirement_card" style="height: auto;">
+                    <div class="requirement_info " data-action="priceDetails">
+                        <div class="requirement_name">
+                            <span class="step">1</span>Price Details <span class="icon"><i
+                                    class="fa-solid fa-check"></i> <i class="fa-regular fa-circle-xmark"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="requirement_card">
+                    <div class="requirement_info" data-action="paymentOptions">
+                        <div class="requirement_name">
+                            <span class="step">1</span>Payment Options <span class="icon"><i
+                                    class="fa-solid fa-check"></i>
+                                <i class="fa-regular fa-circle-xmark"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/paymentInterface.js"></script>
+
+
+</html>

@@ -14,3 +14,9 @@ const startMainActivity = async () => {
 startMainActivity();
 
 
+
+// <i class="fa-solid fa-cart-shopping"
+// <i class="fa-regular fa-bars"></i>></i>
+// <i class="fa-solid fa-xmark"></i>
+// <i class="fa-regular fa-chevron-left"></i>
+// <i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-magnifying-glass"></i>

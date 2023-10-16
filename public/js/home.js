@@ -1,107 +1,129 @@
 
-
-// const carouselF = document.querySelector(".carouselF")
 const carouselData = document.querySelectorAll(".carouselData")
-console.log(Array.from(carouselData));
 const carouselThInner = document.querySelector(".carouselThInner")
 const categories_wrapper3 = document.querySelector(".categories_wrapper-3");
+const card_container = document.querySelector(".cards")
+setEvents(".search", "keypress", inputSearch)
 
-const card_move_btn = document.querySelectorAll(".card_move_btn")
-const intializationOfHome = () => {
-    const book_card = document.querySelectorAll(".book-card")
-    const categoriesWrapperS= document.querySelectorAll(".categoriesWrapperS")
-    setHomeEventsOn(card_move_btn, categoriesWrapperS,book_card)
-}
+
+
+
 const getData = async () => {
     try {
         const data = await fetch("/bookStore/operations", {
             method: "GET",
         });
-        makeTemplate(data)
+        setData(await data.json());
     } catch (error) {
         console.log(error);
     }
 }
 getData()
-const setTemplate = (books, cat, address, section, isInsert = 3) => {
-    console.log(books);
-    if (section === "card") {
-        console.log(books);
-        let template = books.filter((book) => book.category === cat).map((book) => {
-            return `
-           <div class="book-card">
-               <div class="b-img">
-                   <img src="/products_img/${book.imgUrl}" alt="">
-               </div>
-               <div class="b-content">
-                   <h3>${book.title}</h3>
-                   <div class="price">$24.55 <span>$30.5</span></div>
-                   <div class="card-btn">
-                       <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                       <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}" >Add to cart</a>
-                   </div>
-               </div>
-           </div>
-            `
-        })
-        address.innerHTML += template
-    }
-    if (section === "carousel") {
-        let i = 0;
-        let counter = 1;
-        let items = " "
-        books.filter((book) => book.category === cat).map((book, index, arr) => {
-            let template = `<div class="carousel-item active">
-            <img src="/products_img/${book.imgUrl}" class="d-block w-100"
-              style="height: 40rem;" alt="Image 1">
-              <div class="carousel-caption">
-                  <h3>Slide 1</h3>
-                  <p>Slide 1 description</p>
-              </div>
-      </div>`
-            items += template
-            if (arr.length - arr.length % isInsert === index && arr.length % isInsert < 2) {
-                return
-            }
-            if (counter === isInsert) {
-                address[i].innerHTML = items
-                ++i;
-                counter = 0;
-                items = ""
-            }
-            counter += 1;
-        })
 
+// const setHomeEventsOn = (event) => {
+//     const target = event.target;
+//     const card_container = document.querySelector(".card_container")
+//     if (target.classList.contains("fa-chevron-left") ) {
+//         card_container.scrollLeft -= 220
+//     }
+//     if (target.classList.contains("fa-chevron-right") ){
+//         card_container.scrollLeft += 220
+//     }
+
+// }
+function setProductStarRating(rating, dynamic_star) {
+    const value = !Number.isInteger(rating) ? Math.floor(rating) + 1 : rating;
+    for (let i = 1; i <= value; i++) {
+        if (i > 5) break;
+        if (i > rating) {
+            Array.from(dynamic_star)[i - 1].style.width = `${(rating - Math.floor(rating)) * 100}%`
+        } else {
+            Array.from(dynamic_star)[i - 1].style.width = "100%"
+        }
+        Array.from(dynamic_star)[i - 1].style.color = "red"
     }
-  
 }
 
-const makeTemplate = async (data) => {
-    const { books } = await data.json()
-    if (books) {
-        setTemplate(books, "Science", Array.from(carouselData), "carousel", 3)
-        // setTemplate(books, "Math", categoriesWrapperS, "card");
-        // setTemplate(books, "Science", card_container, "card")
-        intializationOfHome()
+
+function setData(data) {
+    const { books } = data
+
+    createCard(books)
+}
+
+const cats = ["hcverama"]
+function createCard(products) {
+    const cardContainer = document.querySelector(".cardContainer")
+    console.log(products);
+    let addCount = 0;
+    let a = "sdkfjs"
+    console.log(a.length);
+    cats.reduce((currentProducts, cat) => {
+        console.log(currentProducts);
+        const filteredProducts = currentProducts.filter((filterProduct) => "hc verama" === filterProduct.keywords[0])
+        console.log(filteredProducts);
+        if (filteredProducts.length >= 4) {
+            for (let i = 1; i <= parseInt(filteredProducts.length / 4); i++) {
+                let cardInner =
+                    `<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 p-0">
+                    <div class="row  pt-2 pb-2 rounded" style="margin:6.5px;">
+                        <div class="col-6">
+                            <div class="card" style="width: 100%;">
+                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top" style="height:300px;" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
+                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card" style="width: 100%;">
+                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top"  style="height:300px;" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
+                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-2 pb-2 rounded" style="margin:6.5px;">
+                        <div class="col-6">
+                            <div class="card" style="width: 100%;">
+                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top"  style="height:300px;" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
+                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card" style="width: 100%;">
+                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top"  style="height:300px;" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
+                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+                cardContainer.innerHTML += addCount<products.length&&addCount===20?cardInner+`<a class="link-primary" href="#"> ...More</a>`:cardInner
+            }
+        };
+        return currentProducts
+    }, products)
+   
+}
+
+
+function readMoreString(string, sliceEndIndex) {
+    let newString = ""
+    if (string.length > sliceEndIndex + 1) {
+        newString = string.slice(0, sliceEndIndex) + `<a class="link-primary" href="#"> ...More</a>`
+    } else {
+        newString = string.slice(0, sliceEndIndex)
     }
+    return newString
 }
-const setHomeEventsOn = (card_move_btn, card_container,book_card) => {
-    addToCartEvent()
-    book_card.forEach((element,index)=>{
-        console.log("hei");
-        element.style.left = `${270*index}px`
-    })
-    card_move_btn.forEach((element) => {
-        element.addEventListener("click",(event) => {
-            const card_container = document.querySelector(".card_container")
-            if (event.target.classList[0] === "left_move") {
-                card_container.scrollLeft -= 220
-            }
-            if (event.target.classList[0] === "right_move") {
-                card_container.scrollLeft += 220
-            }
-        })
-    
-    })
-}
+
 

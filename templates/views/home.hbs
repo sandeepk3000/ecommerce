@@ -5,283 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {{>common.links}}
     <link rel="stylesheet" href="/scss/home_scss/home.css">
 </head>
 
-<body>
+<body style="background-color: #e3e6e6;">
     {{>navbar}}
-    <section>
-        <div class="carousel_hero">
+    <div class="hero_carousel_container">
 
-            <div id="carousel1" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-bs-target="#carousel1" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carousel1" data-bs-slide-to="1"></li>
-                    <li data-bs-target="#carousel1" data-bs-slide-to="2"></li>
-                </ol>
-
-                <!-- Slides -->
-                <div class="carousel-inner carouselFInner">
-                    <div class="carousel-item active">
-                        <img src="/img/close-up-colorful-books-pile.jpg" class="d-block w-100" style="height: 40rem;"
-                            alt="Image 1">
-                        <div class="carousel-caption">
-                            <h3>Slide 1</h3>
-                            <p>Slide 1 description</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/img/close-up-colorful-books-pile.jpg" class="d-block w-100" style="height: 40rem;"
-                            alt="Image 2">
-                        <div class="carousel-caption">
-                            <h3>Slide 2</h3>
-                            <p>Slide 2 description</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/img/close-up-colorful-books-pile.jpg" class="d-block w-100" style="height: 40rem;"
-                            alt="Image 3">
-                        <div class="carousel-caption">
-                            <h3>Slide 3</h3>
-                            <p>Slide 3 description</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Controls -->
-                <a class="carousel-control-prev" href="#carousel1" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel1" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-    <section>
-        <div class="products_categories">
-            <div class="categoriesWrapperF categories_wrapper">
-                <div class="carouselCard">
-                    <div id="card_1" class="carousel catCarousel slide" data-bs-ride="carousel" data-bs-interval="2000">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#card_1" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#card_1" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#card_1" data-bs-slide-to="2"></li>
-                        </ol>
-
-                        <!-- Slides -->
-                        <div class="carousel-inner carouselData">
-
-                        </div>
-
-                        <!-- Controls -->
-                        <a class="carousel-control-prev" href="#card_1" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#card_1" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="carouselCard">
-                    <div id="catcard_2" class="carousel  slide" data-bs-ride="carousel" data-bs-interval="2000">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#card_2" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#card_2" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#card_2" data-bs-slide-to="2"></li>
-                        </ol>
-
-                        <!-- Slides -->
-                        <div class="carousel-inner carouselData">
-
-                        </div>
-
-                        <!-- Controls -->
-                        <a class="carousel-control-prev" href="#card_2" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#card_2" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="categoriesWrapperS categories_wrapper">
-                <div class="cards">
-                    <div class="card_container custom_srcollbar">
-                        <div class="book-card">
-                            first
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-card">
-                            last
-                            <div class="b-img">
-                                <img src="/products_img/A Brief History of Time.jpg" alt="">
-                            </div>
-                            <div class="b-content">
-                                <h3>${book.title}</h3>
-                                <div class="price">$24.55 <span>$30.5</span></div>
-                                <div class="card-btn">
-                                    <a href="/single?productId=${book._id}" class="custom-btn buy-btn">Buy</a>
-                                    <a href="/addToCart" class="custom-btn add-to-cart" id="${book._id}">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
-                     <div class="indicator_contianer">
-                            <button class="left_move card_move_btn">left</button>
-                            <button class="right_move card_move_btn">right</button>
-                        </div>
-                </div>
-
-            </div>
-            <div class="categories_wrapper-3 categories_wrapper">
-                <h2>Chemistry Books</h2>
-                <div id="carousel3" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    </div>
+    <div class="container-fluid p-4">
+        <div class="row">
+            <div class="col">
+                <div id="hero_carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-bs-target="#carousel3" data-bs-slide-to="0" class="active"></li>
-                        <li data-bs-target="#carousel3" data-bs-slide-to="1"></li>
-                        <li data-bs-target="#carousel3" data-bs-slide-to="2"></li>
+                        <li data-bs-target="#hero_carousel" data-bs-slide-to="0" class="active"></li>
+                        <li data-bs-target="#hero_carousel" data-bs-slide-to="1"></li>
+                        <li data-bs-target="#hero_carousel" data-bs-slide-to="2"></li>
                     </ol>
 
                     <!-- Slides -->
-                    <div class="carousel-inner carouselThInner">
-
+                    <div class="carousel-inner carouselFInner">
+                        <div class="carousel-item active">
+                            <img src="/img/close-up-colorful-books-pile.jpg" class="d-block w-100"
+                                style="height: 40rem;" alt="Image 1">
+                            <div class="carousel-caption">
+                                <h3>Slide 1</h3>
+                                <p>Slide 1 description</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/close-up-colorful-books-pile.jpg" class="d-block w-100"
+                                style="height: 40rem;" alt="Image 2">
+                            <div class="carousel-caption">
+                                <h3>Slide 2</h3>
+                                <p>Slide 2 description</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/close-up-colorful-books-pile.jpg" class="d-block w-100"
+                                style="height: 40rem;" alt="Image 3">
+                            <div class="carousel-caption">
+                                <h3>Slide 3</h3>
+                                <p>Slide 3 description</p>
+                            </div>
+                        </div>
                     </div>
 
+
                     <!-- Controls -->
-                    <a class="carousel-control-prev" href="#carousel3" role="button" data-bs-slide="prev">
+                    <a class="carousel-control-prev" href="#hero_carousel" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carousel3" role="button" data-bs-slide="next">
+                    <a class="carousel-control-next" href="#hero_carousel" role="button" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </a>
                 </div>
             </div>
+        </div>
+        <div class="row cardContainer">
 
-    </section>
-
-    <section>
-
-
-        <div class="cat">
 
         </div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    </div>
+    {{>footer}}
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/common.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    <script src="/js/index.js"></script>
     <script src="/js/home.js"></script>
+
 
 </body>
 

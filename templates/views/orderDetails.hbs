@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        
+        .progress {
+            background-color: rgb(234, 213, 59);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* .step-one {
+            background-color: #26a541;
+            border:3px solid #26a541;
+        } */
+
+        .progress::after {
+            content: "";
+            width: 3px;
+            height:var(--height,0px) ;
+            top: 100%;
+            position: absolute;
+            background-color: rgb(255, 0, 68);
+        }
+
+        .progress::before {
+            content: "";
+            width: 80%;
+            height: 80%;
+            top: calc(50% - 40%);
+            border-radius: 50%;
+            position: absolute;
+            background-color:var(--pointColor,rgb(255, 255, 2)) ;
+        }
+
+        .step-fourth::after {
+            height: 0;
+            width: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            position: relative;
+            margin-bottom: 100px;
+        }
+
+        .progress_info {
+            position: absolute;
+            top: 0%;
+            left: 68px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 110px;
+        }
+
+        .progress_data {
+            height: 100%;
+            font-family: sans-serif;
+            margin-bottom: .5rem;
+        }
+
+        .progress_container {
+            width: auto;
+            padding: 16px;
+        }
+
+        .label {
+            font-size: 1.2rem;
+            /* font-weight: 500; */
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <div class="step-number"></div>
+        <div class="label"></div>
+        <div class="progress"></div> -->
+    <div class="progress_container">
+        <ul>
+            <li>
+                <div class="progress step-one">
+                    <span></span>
+
+                    <!-- <i>icon</i> -->
+                </div>
+                <div class="progress_info">
+                    <div class="label">Order Confirmed <span class="progress_time">Tue, 1st Aug -12:36pm </span></div>
+                    <div class="progress_data">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia, </p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="progress step-two">
+                    <span></span>
+                    <!-- <i>icon</i> -->
+                </div>
+                <div class="progress_info">
+                    <div class="label">Shepped <span class="progress_time">Tue, 1st Aug -12:36pm </span></div>
+                    <div class="progress_data">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ipsa distinctio! Cumque
+                            incidunt tempore consequatur soluta deserunt magni sequi totam?</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="progress step-three">
+                    <span></span>
+                    <!-- <i>icon</i> -->
+                </div>
+                <div class="progress_info">
+                    <div class="label">Out For Delivery <span class="progress_time">Tue, 1st Aug -12:36pm </span></div>
+                    <div class="progress_data">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ipsa distinctio! Cumque
+                            incidunt tempore consequatur soluta deserunt magni sequi totam?</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="progress step-fourth">
+                    <span></span>
+                    <!-- <i>icon</i> -->
+                </div>
+                <div class="progress_info">
+                    <div class="label">Delivered <span class="progress_time">Tue, 1st Aug -12:36pm </span></div>
+                    <div class="progress_data">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ipsa distinctio! Cumque
+                            incidunt tempore consequatur soluta deserunt magni sequi totam?</p>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/common.js"></script>
+    
+    <script src="/js/orderDetails.js"></script>
+</body>
+
+</html>
