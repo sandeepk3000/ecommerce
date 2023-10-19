@@ -95,7 +95,7 @@ const getProduts = asyncWrapper(async (req, res) => {
     let books;
     if (genres) {
         console.log(genres);
-        books = await Book.find({ genres: { $in: [genres] } })
+        books = await Book.find({ keywords: { $in: [genres] } })
 
     } else {
         books = await Book.find({})

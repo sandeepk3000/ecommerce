@@ -5,7 +5,7 @@ const publicKey = "pk_test_51NNH3OSCI5qRRjQx1cj3ewMSMaJOryP8xrDqDuecVvC6ezgj57TO
 let discount = 0;
 let userData;
 async function confirmRequirements() {
-    const { isAuthenticated, user } = await isUserLogged(token)
+    const { isLogged, user } = await isUserLogged(token)
     userData = user;
     console.log(user)
     const mob_requirement = document.querySelector('div[data-action="mobileNumber"]');
@@ -115,7 +115,7 @@ function setRequirements(data, action, container) {
                 inner_content += ` <div class="book-card" id=${product._id}>
                 <div class="product_quantity">
                     <div class="b-img">
-                        <img src="/products_img/${product.image}" alt="">
+                        <img src="/products_img/${product.images[0]}" alt="">
                     </div>
                     <div class="quantity">
                         <div>
@@ -310,9 +310,9 @@ async function updateInfo(event) {
         body[key] = value
     }
     const method = "PATCH"
-    const action = "addresses";
+    const action = "address";
     const res = await updateUser(action, userData._id, body, method)
-    if (res.isPost) {
+    if (res.isUpdated) {
         location.reload()
     }
 
@@ -499,7 +499,7 @@ function updateUser(action, userId, body, method) {
             return response.json()
         })
         .then(function (data) {
-            if (!data.isPost) {
+            if (!data.isUpdated) {
                 return
             }
             return data

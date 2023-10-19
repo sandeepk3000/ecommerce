@@ -2,20 +2,27 @@
 const User = require("../models/user")
 const asyncWrapper = require("./asyncWrapper");
 const jwt = require("jsonwebtoken")
-const authenticationJWT =asyncWrapper( async (req, res) => { 
-    const jwtToken = req.body.jwtToken;
-    if(!jwtToken){
-        return res.json({isAuthenticated:false})
+const authenticationJWT = asyncWrapper(async (req, res) => {
+    const { jwtToken } = req.body;
+    console.log(jwtToken);
+    let auth;
+    if (!jwtToken) {
+        return res.json({ isLogged: false })
+    } else {
+        jwt.verify(jwtToken, "sandeep@2003", async (error, decoded) => {
+            const currentTimestamp = Math.floor(Date.now() / 1000)
+            if (decoded.exp > currentTimestamp) {
+                const user = await User.findById(decoded._doc._id)
+                return res.json({ isLogged: true, isTokenExpired: false,user:user})
+            } else {
+                console.log(error);
+                return res.json({ isLogged: false, isTokenExpired: true })
+            }
+
+        })
+
     }
-    jwt.verify(jwtToken,"sandeep@2003",async(error,decoded)=>{
-        // console.log(decoded);
-        const user = await User.findById(decoded._doc._id)
-        // console.log(user);
-        if(error){
-            return res.json({isAuthenticated:false})
-        }
-          return res.json({isAuthenticated:true,user:user});
-    })
-  
 })
+
+
 module.exports = authenticationJWT

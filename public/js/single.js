@@ -1,11 +1,6 @@
 
-const productId = "6515937c1c5c1de41157761d"
-// // const img_Section = document.querySelector(".sb-img")
-// // const review_input_placeHolder = document.querySelector(".review_input_placeHolder")
-// // const dynamic_star = document.querySelectorAll("#dynamic_star")
-// // const content_Section = document.querySelector(".sb-content")
-// // const rating_add_btn = document.querySelector(".rating_add_btn")
-// // rating_add_btn.addEventListener("click", openReviewInput)
+const queryString = new URLSearchParams(window.location.search)
+const productId = queryString.get("productId")
 const productAccordion = document.querySelector("#prductAccordion")
 const productCard = document.querySelector("#productCard")
 const productImgList = document.querySelector(".productImgList")
@@ -285,9 +280,10 @@ function setProductProgressRating(reviews, totalRating) {
 
 setEvents("#add-to-cart", "click", cartController);
 async function cartController() {
+    const {isLogged,isTokenExpired,user} = await isUserLogged(token)
     const cartBtn = document.querySelector("#add-to-cart")
     addBtnSpinner(cartBtn)
-    const status = await addToCart("651ad4be945a5bf1c96b5322", productId)
+    const status = await addToCart(user._id, productId)
     console.log(status);
     if (status || !status) {
         window.location.href = "/addToCart"

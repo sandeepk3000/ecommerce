@@ -4,10 +4,11 @@ const quantityShow = document.querySelector(".quantityShow")
 const products = document.querySelector("#products")
 setEvents("#placeOrder", "click", orderPlace)
 setEvents(".search", "keypress", inputSearch)
-let userId = "651ad4be945a5bf1c96b5322"
+let userId;
 const getCartData = async () => {
-    // const { isAuthenticated, user } = await isUserLogged(token)
     // userId = user._id
+    const { isLogged, isTokenExpired, user } = await isUserLogged(token)
+    userId=user._id
     const url = `/account/onCart/${userId}`
     // console.log(user._id);
     const res = await fetch(url, {
@@ -119,7 +120,7 @@ const setCartData = async function (data) {
         let product = ` <div class="book-card" id=${cartProduct._id}>
         <div class="product_quantity">
             <div class="b-img">
-                <img src="/products_img/${cartProduct.image}" alt="">
+                <img src="/products_img/${cartProduct.images[0]}" alt="">
             </div>
             <div class="quantity">
                 <div>
@@ -130,8 +131,11 @@ const setCartData = async function (data) {
             </div>
         </div>
         <div class="b-content">
-            <h3>Nutan book</h3>
-            <div class="itemPrice">$${price.toLocaleString()}</div>
+            <h3>${cartProduct.name}</h3>
+            <div class="itemPrice">${cartProduct.price.toLocaleString("en-IN", {
+            style: "currency",
+            currency: "INR"
+        })}</div>
             <div class="card-btn">
                 <a href="" class="custom-btn buy-btn">Buy</a>
                 <a href="" class="custom-btn remove-form-cart-btn">Remove</a>

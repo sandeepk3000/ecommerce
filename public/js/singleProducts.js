@@ -11,7 +11,7 @@ const setData = async () => {
         
         let bookcard =
             `<div class="col-6 col-md-4 col-lg-2 p-3">
-                <a href="" class="text-decoration-none text-dark">
+                <a href="/single?productId=${book._id}" class="text-decoration-none text-dark">
                     <div class="card" style="width:100%;">
                         <img src="/products_img/Weapons of Math Destruction.jpg" class="card-img-top" style="height: 250px; alt="...">
                         <div class="card-body">

@@ -12,7 +12,29 @@ let isButtonDisabled = false
 //     cartItems.textContent = updatedquantity
 
 // })
-
+async function isUserLogged(token) {
+    if (token) {
+        const data = await fetch("/varify", {
+            method: "POST",
+            body: JSON.stringify(JSON.parse(token)),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (res) {
+            return res.json()
+        }).then(function (data) {
+            if (data.isTokenExpired) {
+                localStorage.removeItem("token")
+            }
+            return data
+        }).catch(function (error) {
+            console.log(error);
+        })
+        return data
+    } else {
+        return { isLogged: false }
+    }
+}
 function inputSearch(event) {
     if (event.key === "Enter" && search.value.length >= 2) {
         window.location.href = `/singleProducts?cat=${search.value.trim()}`
@@ -21,6 +43,7 @@ function inputSearch(event) {
     }
 }
 const searchProducts = async (searchquery = "hc verama") => {
+    console.log(await isUserLogged(token));
     try {
         const data = await fetch(`/bookStore/operations/singleProducts/${searchquery}`, {
             method: "GET",
@@ -30,25 +53,7 @@ const searchProducts = async (searchquery = "hc verama") => {
         console.log(error);
     }
 }
-async function isUserLogged(token) {
-    if (token) {
-        const data = await fetch("/submitBtn", {
-            method: "POST",
-            body: JSON.stringify(JSON.parse(token)),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (res) {
-            return res.json()
-        }).then(function (data) {
-            console.log(data);
-            return data
-        }).catch(function (error) {
-            console.log(error);
-        })
-        return data
-    }
-}
+
 // createUserStatus()
 async function createUserStatus() {
     let userStatus = ""
@@ -202,7 +207,7 @@ function setEvents(selectorName, eventName, handler) {
     console.log(selectorName);
     var elements = document.querySelectorAll(selectorName)
     elements.forEach(function (element) {
-        element.addEventListener(eventName,handler)
+        element.addEventListener(eventName, handler)
     })
 }
 

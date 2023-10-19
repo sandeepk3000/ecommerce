@@ -68,42 +68,50 @@ function createCard(products) {
                     `<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 p-0">
                     <div class="row  pt-2 pb-2 rounded" style="margin:6.5px;">
                         <div class="col-6">
+                         <a href="/singleProducts?cat=hc verama" class="text-decoration-none text-dark">
                             <div class="card" style="width: 100%;">
-                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top" style="height:300px;" alt="...">
+                                <img src="/products_img/${filteredProducts[addCount].images[0]}" class="card-img-top" style="height:300px;" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
-                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                        <h5 class="card-title">${filteredProducts[addCount].name}</h5>
+                                        <p class="card-text">${filteredProducts[addCount++].description}</p>
                                     </div>
                             </div>
+                        </a>
                         </div>
                         <div class="col-6">
+                         <a href="/singleProducts?cat=hc verama" class="text-decoration-none text-dark">
                             <div class="card" style="width: 100%;">
-                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top"  style="height:300px;" alt="...">
+                                <img src="/products_img/${filteredProducts[addCount].images[0]}" class="card-img-top"  style="height:300px;" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
-                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                        <h5 class="card-title">${filteredProducts[addCount].name}</h5>
+                                        <p class="card-text">${filteredProducts[addCount++].description}</p>
                                     </div>
                             </div>
+                        </a>
                         </div>
                     </div>
                     <div class="row pt-2 pb-2 rounded" style="margin:6.5px;">
                         <div class="col-6">
+                         <a href="/singleProducts?cat=hc verama" class="text-decoration-none text-dark">
                             <div class="card" style="width: 100%;">
-                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top"  style="height:300px;" alt="...">
+                                <img src="/products_img/${filteredProducts[addCount].images[0]}" class="card-img-top"  style="height:300px;" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
-                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                        <h5 class="card-title">${filteredProducts[addCount].name}</h5>
+                                        <p class="card-text">${filteredProducts[addCount++].description}</p>
                                     </div>
                             </div>
+                        </a>
                         </div>
                         <div class="col-6">
+                         <a href="/singleProducts?cat=hc verama" class="text-decoration-none text-dark">
                             <div class="card" style="width: 100%;">
-                                <img src="/products_img/${filteredProducts[addCount].image}" class="card-img-top"  style="height:300px;" alt="...">
+                                <img src="/products_img/${filteredProducts[addCount].images[0]}" class="card-img-top"  style="height:300px;" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title">${readMoreString(filteredProducts[addCount].name,10)}</h5>
-                                        <p class="card-text">${readMoreString(filteredProducts[addCount++].description,4)}</p>
+                                        <h5 class="card-title">${filteredProducts[addCount].name}</h5>
+                                        <p class="card-text">${filteredProducts[addCount++].description}</p>
                                     </div>
                             </div>
+                        </a>
                         </div>
                     </div>
                 </div>`

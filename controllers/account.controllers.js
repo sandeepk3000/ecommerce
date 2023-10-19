@@ -47,6 +47,7 @@ const getUser = asyncWrapper(async (req, res) => {
 
 const signUp = asyncWrapper(async (req, res) => {
     const { name, email, password } = req.body;
+    console.log(req.body);
     const exitUser = await User.findOne({ email: email, password: password })
     // here  checking exitUser is already exists or not
     if (exitUser) {
@@ -64,10 +65,13 @@ const signUp = asyncWrapper(async (req, res) => {
     const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
         expiresIn: "2h"
     })
-    user.token = token
     user.password = undefined
+    console.log(user);
     //here send response
-    res.status(201).json(user)
+    res.status(201).json({
+        user,
+        token: token
+    })
 })
 // add function
 
@@ -86,17 +90,14 @@ const login = asyncWrapper(async (req, res) => {
     if (!isPasswordMatch) {
         return res.status(401).json({ message: "Invalid email or password" })
     }
-    const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003")
+    const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
+        expiresIn: "2h"
+    })
     user.token = token;
     user.password = undefined;
-    const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        httpOnly: true
-    }
-    res.status(200).cookie("token", token, options).json({
-        success: true,
-        token,
-        user
+    res.status(200).json({
+        user,
+        token: token
     })
 })
 
@@ -113,18 +114,18 @@ async function getPage(req, res) {
         switch (action) {
             case "changePassword":
                 console.log(action);
-                res.render("changePassword",user)
+                res.render("changePassword", user)
                 break;
             case "changeNumber":
                 console.log(action);
-                res.render("changeNumber",user)
+                res.render("changeNumber", user)
                 break;
             case "changeList":
                 console.log(action);
-                res.render("changeList",user)
+                res.render("changeList", user)
                 break;
             case "changeName":
-                res.render("changeName",user)
+                res.render("changeName", user)
                 break;
             case "profile":
                 console.log(action);
@@ -132,11 +133,11 @@ async function getPage(req, res) {
                 break;
             case "changeemail":
                 console.log(action);
-                res.render("userAccount",user)
+                res.render("userAccount", user)
                 break;
             case "orders":
                 console.log(action);
-                res.render("orders",user)
+                res.render("orders", user)
                 break;
             case "single":
                 console.log(action);
@@ -165,6 +166,7 @@ const changeUserInfo = async (req, res) => {
     try {
         let updatedUser = null;
         const { action, userId } = req.query
+        console.log(action);
         const ObjectId = new mongodb.ObjectId(`${userId}`)
         const isUserExit = await User.findOne({ _id: ObjectId });
         console.log(isUserExit);
@@ -173,7 +175,7 @@ const changeUserInfo = async (req, res) => {
             return res.json({ message: false })
         }
         switch (action) {
-            case "pushAddress":
+            case "address":
                 const { moblileNumber, type, city, street, locality, zip, state } = req.body
                 updatedUser = await User.updateOne({ _id: ObjectId, addresses: { $not: { $elemMatch: { type: type } } } }, {
                     $push: {
@@ -187,19 +189,19 @@ const changeUserInfo = async (req, res) => {
                         }
                     }
                 })
-                break
-            case "updateAddress":
-                updatedUser = await User.updateOne({ _id: ObjectId, addresses: { $elemMatch: { type: type } } }, {
-                    $set: {
-                        // jo match hua hai usaki position find kerata hai $ sign
-                        "addresses.$.city": city,
-                        "addresses.$.type": type,
-                        "addresses.$.locality": locality,
-                        "addresses.$.state": state,
-                        "addresses.$.zip": zip,
-                        "addresses.$.street": street
-                    }
-                })
+                if (updatedUser.modifiedCount === 0) {
+                    updatedUser = await User.updateOne({ _id: ObjectId, addresses: { $elemMatch: { type: type } } }, {
+                        $set: {
+                            // jo match hua hai usaki position find kerata hai $ sign
+                            "addresses.$.city": city,
+                            "addresses.$.type": type,
+                            "addresses.$.locality": locality,
+                            "addresses.$.state": state,
+                            "addresses.$.zip": zip,
+                            "addresses.$.street": street
+                        }
+                    })
+                }
                 break
             case 'orderHistory':
                 const orderID = `order_Id_${Date.now()}-${generateOrderId()}`;
@@ -306,7 +308,7 @@ const myCart = asyncWrapper(async (req, res) => {
         // console.log(isUserExit);
         const ObjectId = new mongodb.ObjectId(`${userId}`)
         const cartProductsID = await User.aggregate([{ $match: { _id: { $eq: ObjectId } } }, { $unwind: "$cart" }, { $group: { _id: null, cartproductsID: { $push: "$cart.productID" } } }])
-        
+
         const [{ cartproductsID }] = cartProductsID
         const cartQuantities = isUserExit.cart
         const cartProducts = await Book.find({ _id: { $in: cartproductsID } })

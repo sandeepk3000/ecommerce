@@ -1,7 +1,7 @@
 
-const loginForm = document.getElementById("loginForm")
+const signupForm = document.getElementById("signupForm")
 
-loginForm.addEventListener("submit", async function doLogin(event) {
+signupForm.addEventListener("submit", async function dosignup(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
     const body = {}
@@ -9,7 +9,7 @@ loginForm.addEventListener("submit", async function doLogin(event) {
         const [key, value] = [...formData.entries()][i]
         body[key] = value
     }
-    await fetch("/account/login", {
+    await fetch("/account/signup", {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -20,7 +20,6 @@ loginForm.addEventListener("submit", async function doLogin(event) {
     }).then(function ({token}) {
         console.log(token);
         if (token) {
-
             const item = {
                 jwtToken: token
             }

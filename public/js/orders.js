@@ -1,8 +1,8 @@
 
 const ordersContainer = document.querySelector(".ordersContainer")
 async function getOrders() {
-    const { isAuthenticated, user } = await isUserLogged(token)
-    if (!isAuthenticated) {
+    const { isLogged, user } = await isUserLogged(token)
+    if (!isLogged) {
         return
     }
     const action = "getOrders"
@@ -20,6 +20,7 @@ async function getOrders() {
         });
         return orderproducts
     }, orderproducts)
+    console.log(updatedOrders);
     setOrders(updatedOrders)
 }
 getOrders()
@@ -31,7 +32,7 @@ function setOrders(orders) {
             <a href=""  class="card-link  h-100">
                 <div class="row p-2 h-100">
                     <div class="col-4 col-sm-3 col-lg-3 col-xl-2 h-100 d-flex">
-                        <img src="/products_img/${order.orderItems.image}" class="img-fluid rounded-start h-100 m-auto"
+                        <img src="/products_img/${order.orderItems.images[0]}" class="img-fluid rounded-start h-100 m-auto"
                             alt="...">
                     </div>
                     <div class="col-8 col-sm-9 col-lg-9  col-xl-10 h-100">
