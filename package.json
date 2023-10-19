@@ -1,10 +1,11 @@
 {
-  "name": "uploading",
+  "name": "S.K Ecommerce",
   "version": "1.0.0",
-  "description": "image uploading app",
+  "description": "S.K Ecommerce is shopping web",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node server.js"
   },
   "author": "sandeep kumar",
   "license": "ISC",

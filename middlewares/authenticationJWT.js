@@ -9,7 +9,7 @@ const authenticationJWT = asyncWrapper(async (req, res) => {
     if (!jwtToken) {
         return res.json({ isLogged: false })
     } else {
-        jwt.verify(jwtToken, "sandeep@2003", async (error, decoded) => {
+        jwt.verify(jwtToken, process.env.JWT_PRIVATE_KEY, async (error, decoded) => {
             const currentTimestamp = Math.floor(Date.now() / 1000)
             if (decoded.exp > currentTimestamp) {
                 const user = await User.findById(decoded._doc._id)

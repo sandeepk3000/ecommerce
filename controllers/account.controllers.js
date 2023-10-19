@@ -62,7 +62,7 @@ const signUp = asyncWrapper(async (req, res) => {
     // res.cookie("user", { cartValue: user.cart.length, userId: user._id, status: true }, {
     //     maxAge: 3600000
     // })
-    const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
+    const token = jwt.sign({ ...user, password: undefined }, process.env.JWT_PRIVATE_KEY, {
         expiresIn: "2h"
     })
     user.password = undefined
@@ -90,7 +90,7 @@ const login = asyncWrapper(async (req, res) => {
     if (!isPasswordMatch) {
         return res.status(401).json({ message: "Invalid email or password" })
     }
-    const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
+    const token = jwt.sign({ ...user, password: undefined }, process.env.JWT_PRIVATE_KEY, {
         expiresIn: "2h"
     })
     user.token = token;
