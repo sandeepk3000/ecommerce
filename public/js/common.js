@@ -2,30 +2,27 @@
 // const socketCommon = io("/cartQuantity")
 const header = document.querySelector("#header")
 const authentication_wrapper = document.querySelector(".authentication-wrapper")
-// const user_profile = document.querySelector(".user-profile")
+const userStatus = document.querySelector(".userStatus")
 const search = document.querySelector(".search")
-const token = localStorage.getItem("token")
+const userId = localStorage.getItem("userId")
 let isButtonDisabled = false
+const urlString = new URL(window.location.href) 
+const pathAfterDomain = urlString.pathname
+console.log(pathAfterDomain);
 // socketCommon.on("currentQuantity", (updatedquantity) => {
 
 //     const cartItems = document.querySelector(".rounded-pill")
 //     cartItems.textContent = updatedquantity
 
 // })
-async function isUserLogged(token) {
-    if (token) {
-        const data = await fetch("/varify", {
-            method: "POST",
-            body: JSON.stringify(JSON.parse(token)),
-            headers: {
-                "Content-Type": "application/json"
-            }
+async function getUser(userId) {
+    if (userId) {
+        const data = await fetch(`/account/getUser?userId=${decodeURIComponent(userId)}`, {
+            method: "GET"
         }).then(function (res) {
             return res.json()
         }).then(function (data) {
-            if (data.isTokenExpired) {
-                localStorage.removeItem("token")
-            }
+            console.log(data, "user");
             return data
         }).catch(function (error) {
             console.log(error);
@@ -43,7 +40,6 @@ function inputSearch(event) {
     }
 }
 const searchProducts = async (searchquery = "hc verama") => {
-    console.log(await isUserLogged(token));
     try {
         const data = await fetch(`/bookStore/operations/singleProducts/${searchquery}`, {
             method: "GET",
@@ -54,100 +50,48 @@ const searchProducts = async (searchquery = "hc verama") => {
     }
 }
 
-// createUserStatus()
+createUserStatus()
 async function createUserStatus() {
-    let userStatus = ""
-    const navbarSupportedContent = document.querySelector("#navbarSupportedContent")
-    const { isAuthenticated, user } = await isUserLogged(token)
+    let userStatusInner = ""
+    const { user } = await getUser(userId)
+    console.log(user);
     // socketCommon.emit("quantityRoom", user._id)
-    if (isAuthenticated) {
-        userStatus =
-            `<div class="d-flex align-items-center">
-                <!-- Icon -->
-                <a class="text-reset me-3" href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger cartValue">0</span>
-                </a>
-
-                <!-- Notifications -->
-                <div class="nav-item dropdown">
-                    <a
-                        class="text-reset me-3 dropdown-toggle hidden-arrow"
-                        href="#"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <i class="fas fa-bell"></i>
-                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                    </a>
-                    <ul
-                        class="dropdown-menu "
-                        aria-labelledby="navbarDropdownMenuLink"
-                    >
-                        <li>
-                            <a class="dropdown-item" href="#">Some news</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Another news</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Avatar -->
-                <div class="dropdown">
-                    <a
-                        class="dropdown-toggle d-flex align-items-center hidden-arrow"
-                        href="#"
-                        id="navbarDropdownMenuAvatar"
-                        role="button"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                            class="rounded-circle"
-                            height="25"
-                            alt="Black and White Portrait of a Man"
-                            loading="lazy"
-                        />
-                    </a>
-                    <ul
-                        class="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="navbarDropdownMenuAvatar"
-                    >
-                        <li>
-                            <a class="dropdown-item" href="#">My profile</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Settings</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>`
-        navbarSupportedContent.insertAdjacentHTML("beforeend", userStatus)
-        document.querySelector(".cartValue").textContent = user.cart.length
-
-
+    if (user) {
+        userStatusInner =
+            `<li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" href="#">
+          <i class="fas fa-bell me-1 position-relative"><span
+              class="badge rounded-pill badge-notification bg-danger position-absolute"
+              style="top: -12px;left:3px">1</span>
+          </i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" href="#">
+          <i class="fa-solid fa-cart-shopping me-1 position-relative"><span
+              class="badge rounded-pill badge-notification bg-danger position-absolute"
+              style="top: -12px;left:8px">${user.cart.length}</span>
+          </i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" href="/account/page?action=profile"><i class="fa-solid fa-circle-user me-1"></i></a>
+      </li>`
     }
     else {
-        userStatus =
-            `<div class="d-flex align-items-center">
-                <button type="button" class="btn btn-link px-3 me-2">
-                    Login
-                </button>
-                <button type="button" class="btn btn-primary me-3">
-                    Sign up for free
-                </button>
-            </div>`
-        navbarSupportedContent.insertAdjacentHTML("beforeend", userStatus)
+        userStatusInner =
+            `<li class="nav-item">
+                <div class="d-flex align-items-center">
+                    <a href="/login?origin=${pathAfterDomain}" class="btn btn-primary me-3">
+                        Login
+                    </a>
+                    <a href="/signup?origin=${pathAfterDomain}" class="btn btn-primary me-3">
+                        Sign up for free
+                    </a>
+                </div>
+            </li>`
     }
+    userStatus.innerHTML = userStatusInner
 }
 async function cartQuantity(action, userId) {
     // const carValue = document.querySelector(".rounded-pill")

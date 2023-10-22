@@ -1,11 +1,12 @@
 
 const queryString = new URLSearchParams(window.location.search)
+setEvents("#openReviewForm", "click", openReviewForm)
 const productId = queryString.get("productId")
 const productAccordion = document.querySelector("#prductAccordion")
 const productCard = document.querySelector("#productCard")
 const productImgList = document.querySelector(".productImgList")
 const product_img_shower = document.querySelector(".product_img_shower")
-const getSingleData = async () => {
+const getSingleData = async (productId) => {
     try {
         if (productId) {
             const data = await fetch(`/bookStore/operations/${productId}`, {
@@ -21,7 +22,7 @@ const getSingleData = async () => {
         console.log(error);
     }
 }
-getSingleData()
+getSingleData(productId)
 
 const setSingleData = async (data) => {
     const { product } = await data.json();
@@ -148,7 +149,7 @@ function getInputRating(event) {
 }
 async function postInputRating(ratingText, rating, productID) {
     console.log(rating + " " + ratingText);
-    const { isAuthenticated, user } = await isUserLogged(token)
+    const { user } = await getUser(userId)
     console.log(user._id);
     await fetch("/bookStore/operations/addReviews", {
         method: "PATCH",
@@ -275,12 +276,13 @@ function setProductProgressRating(reviews, totalRating) {
         product_progress.innerHTML += rating_progressInner
         return reviews
     }, reviews)
+   
 }
 
 
 setEvents("#add-to-cart", "click", cartController);
 async function cartController() {
-    const {isLogged,isTokenExpired,user} = await isUserLogged(token)
+    const { user } = await getUser(userId)
     const cartBtn = document.querySelector("#add-to-cart")
     addBtnSpinner(cartBtn)
     const status = await addToCart(user._id, productId)
@@ -303,6 +305,77 @@ function buyBottonController(event) {
         removeBtnSpinner(document.querySelector("#buyBtn"), "buy")
         clearTimeout(time)
     }, 2000)
+}
+let ratingModel;
+function openReviewForm(event) {
+    const target = event.target;
+    target.parentElement.innerHTML+=
+        ` <div class="modal fade" id="ratingModel" tabindex="-1" aria-labelledby="ratingModelLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" id="closeReviewForm" data-bs-dismiss="model"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-0 mx-sm-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="px-2" action="">
+                                        <p class="text-center"><strong>How do you rate customer support:</strong></p>
+
+                                        <ul class="h2 rating justify-content-center pb-3 d-flex" style="list-style: none;"
+                                            data-mdb-toggle="rating">
+                                            <li>
+                                                <i class="far fa-star fa-sm text-primary" title="Bad"></i>
+                                            </li>
+                                            <li>
+                                                <i class="far fa-star fa-sm text-primary" title="Poor"></i>
+                                            </li>
+                                            <li>
+                                                <i class="far fa-star fa-sm text-primary" title="OK"></i>
+                                            </li>
+                                            <li>
+                                                <i class="far fa-star fa-sm text-primary" title="Good"></i>
+                                            </li>
+                                            <li>
+                                                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                                            </li>
+                                        </ul>
+
+                                        <p class="text-center"><strong>What could we improve?</strong></p>
+
+                                        <!-- Message input -->
+                                        <div class="form-outline mb-4">
+                                            <textarea class="form-control" id="form4Example6" rows="4"></textarea>
+                                            <label class="form-label" for="form4Example6">Your feedback</label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>`
+        
+    ratingModel = new bootstrap.Modal(document.getElementById('ratingModel'))
+    ratingModel.show()
+    setEvents("#closeReviewForm","click",closeReviewForm)
+    // setTimeout(()=>{
+    //     ratingModel.
+    // },3000)
+    
+}
+function closeReviewForm(event){
+    ratingModel.dispose()
 }
 
 

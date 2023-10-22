@@ -1,6 +1,6 @@
 
 const loginForm = document.getElementById("loginForm")
-
+const redirectString = new URLSearchParams(window.location.search)
 loginForm.addEventListener("submit", async function doLogin(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -17,15 +17,12 @@ loginForm.addEventListener("submit", async function doLogin(event) {
         }
     }).then(function (respsoe) {
         return respsoe.json()
-    }).then(function ({token}) {
-        console.log(token);
-        if (token) {
-
-            const item = {
-                jwtToken: token
-            }
-            console.log("jwt", item);
-            localStorage.setItem("token", JSON.stringify(item))
+    }).then(function ({ user }) {
+        if (user._id) {
+            const redirectUrl = redirectString.get("origin")
+            console.log("jwt", user._id);
+            localStorage.setItem("userId", encodeURIComponent(user._id))
+            window.location.href = `${redirectUrl}`;
         }
     }).catch(function (erro) {
         console.log(erro);

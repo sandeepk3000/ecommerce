@@ -4,12 +4,9 @@ const quantityShow = document.querySelector(".quantityShow")
 const products = document.querySelector("#products")
 setEvents("#placeOrder", "click", orderPlace)
 setEvents(".search", "keypress", inputSearch)
-let userId;
 const getCartData = async () => {
-    // userId = user._id
-    const { isLogged, isTokenExpired, user } = await isUserLogged(token)
-    userId=user._id
-    const url = `/account/onCart/${userId}`
+    const { user } = await getUser(userId)
+    const url = `/account/onCart/${user._id}`
     // console.log(user._id);
     const res = await fetch(url, {
         method: "GET",
@@ -28,9 +25,8 @@ const getCartData = async () => {
 
 getCartData()
 const serverCallForCart = async (action, productId) => {
-    console.log(action, productId);
-
-    return await fetch(`/account/onCart/${userId}`, {
+    const { user } = await getUser(userId)
+    return await fetch(`/account/onCart/${user._id}`, {
         method: "PATCH",
         body: JSON.stringify({ action: action, productId: productId }),
         headers: {
@@ -39,7 +35,7 @@ const serverCallForCart = async (action, productId) => {
     }).then(function (response) {
         return response.json()
     }).then(function (data) {
-        return data
+        return {userId:user._id,...data}
     }).catch(function (error) {
         return { message: "Item not found", }
     })
@@ -48,6 +44,7 @@ const serverCallForCart = async (action, productId) => {
 let price = 35;
 
 async function quantityController(event) {
+    event.preventDefault()
     console.log(event.target);
     console.log(isButtonDisabled);
     let target = event.target
@@ -77,8 +74,9 @@ async function quantityController(event) {
     if (target.classList.contains("remove-form-cart-btn") && !isButtonDisabled) {
         isButtonDisabled = true
         const action = "removeFromCart"
-        const { message, status } = await serverCallForCart(action, productId)
+        const { message, status ,userId} = await serverCallForCart(action, productId)
         isButtonDisabled = status ? false : true
+        console.log(userId,"userId");
         cartQuantity("remove", userId)
         target.closest(".book-card").remove()
     } else {

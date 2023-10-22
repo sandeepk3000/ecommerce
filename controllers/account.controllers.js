@@ -38,8 +38,12 @@ const likeAndDisLikeOnProducts = asyncWrapper(async (req, res) => {
 })
 
 const getUser = asyncWrapper(async (req, res) => {
-    const { target } = req.params
-    const user = await User.findOne({ _id: target })
+    console.log(req.query);
+    const {userId}  = req.query
+    if(!req.session.authenticated){
+        return res.json({user:null})
+    }
+    const user = await User.findOne({ _id: userId })
     res.status(200).json({
         user
     })
@@ -62,20 +66,21 @@ const signUp = asyncWrapper(async (req, res) => {
     // res.cookie("user", { cartValue: user.cart.length, userId: user._id, status: true }, {
     //     maxAge: 3600000
     // })
-    const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
-        expiresIn: "2h"
-    })
+    // const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
+    //     expiresIn: "2h"
+    // })
+    req.session.authenticated = true
     user.password = undefined
     console.log(user);
     //here send response
     res.status(201).json({
-        user,
-        token: token
+        user
     })
 })
 // add function
 
 const login = asyncWrapper(async (req, res) => {
+    console.log(req);
     const { email, password } = req.body;
     console.log(req.body);
     console.log("login");
@@ -87,17 +92,18 @@ const login = asyncWrapper(async (req, res) => {
     //Compare the password
 
     const isPasswordMatch = await bcrypt.compare(password, user.password)
+    console.log(isPasswordMatch);
     if (!isPasswordMatch) {
         return res.status(401).json({ message: "Invalid email or password" })
     }
-    const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
-        expiresIn: "2h"
-    })
-    user.token = token;
+    // const token = jwt.sign({ ...user, password: undefined }, "sandeep@2003", {
+    //     expiresIn: "2h"
+    // })
+    // user.token = token;
+    req.session.authenticated = true
     user.password = undefined;
     res.status(200).json({
-        user,
-        token: token
+        user
     })
 })
 

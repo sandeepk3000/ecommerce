@@ -76,5 +76,3 @@ function resendOTP(event) {
     }
 
 }
-
-open("/account/page?action=changeList&&target=651ad4be945a5bf1c96b5322&&infoChange=true", "_self").close()
