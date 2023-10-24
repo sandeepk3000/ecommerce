@@ -4,10 +4,7 @@ const carouselThInner = document.querySelector(".carouselThInner")
 const categories_wrapper3 = document.querySelector(".categories_wrapper-3");
 const card_container = document.querySelector(".cards")
 setEvents(".search", "keypress", inputSearch)
-
-
-
-
+createUserStatus()
 const getData = async () => {
     try {
         const data = await fetch("/bookStore/operations", {

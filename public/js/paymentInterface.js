@@ -1,11 +1,10 @@
 
 
 const publicKey = "pk_test_51NNH3OSCI5qRRjQx1cj3ewMSMaJOryP8xrDqDuecVvC6ezgj57TOTo3vlthLjmv2ddv9pVjEZ7yC448HUkZrJF3i00NomjSQq4"
-
 let discount = 0;
 let userData;
 async function confirmRequirements() {
-    const { isLogged, user } = await isUserLogged(token)
+    const { user } = await getUser(userId)
     userData = user;
     console.log(user)
     const mob_requirement = document.querySelector('div[data-action="mobileNumber"]');
@@ -98,7 +97,7 @@ function setRequirements(data, action, container) {
         case "mobileNumber":
             inner_content = `
             <div class="requirement_data">
-                    ${data.mobileNumber}
+                    ${userData.mobilenumber}
                 </div>
             `
             break;
@@ -286,16 +285,16 @@ function openRequirementEditor(event) {
 
         </form>
             `
+            const parentElement = event.target.parentElement.parentElement
+            const payment_requirements = document.querySelector(".payment_requirements")
+            const newParent = document.createElement("div")
+            newParent.classList.add("destination_edit_wrapper")
+            newParent.innerHTML = inner_content
+            payment_requirements.replaceChild(newParent, parentElement)
             break;
 
     }
     if (inner_content) {
-        const parentElement = event.target.parentElement.parentElement
-        const payment_requirements = document.querySelector(".payment_requirements")
-        const newParent = document.createElement("div")
-        newParent.classList.add("destination_edit_wrapper")
-        newParent.innerHTML = inner_content
-        payment_requirements.replaceChild(newParent, parentElement)
         setEvents("#updateInfo", "submit", updateInfo)
     }
 }
@@ -564,7 +563,7 @@ async function createDelivery(order, customerID) {
     if (data.delivery_id) {
         localStorage.setItem("orderInfo", JSON.stringify({ orderId: order.orderID, status: "process" }))
         buttonDisabled = false
-        window.location = `/orderDetails?orderID=${order.orderID}`
+        window.location.replace(`/orderDetails?orderID=${order.orderID}`)
         return;
     }
 }

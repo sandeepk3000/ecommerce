@@ -80,7 +80,7 @@ const signUp = asyncWrapper(async (req, res) => {
 // add function
 
 const login = asyncWrapper(async (req, res) => {
-    console.log(req);
+    // console.log(req);
     const { email, password } = req.body;
     console.log(req.body);
     console.log("login");
@@ -135,7 +135,8 @@ async function getPage(req, res) {
                 break;
             case "profile":
                 console.log(action);
-                res.render("profile")
+                console.log(user);
+                res.render("profile",user)
                 break;
             case "changeemail":
                 console.log(action);

@@ -1,5 +1,6 @@
 
 const queryString = new URLSearchParams(window.location.search)
+createUserStatus()
 setEvents("#openReviewForm", "click", openReviewForm)
 const productId = queryString.get("productId")
 const productAccordion = document.querySelector("#prductAccordion")
@@ -90,10 +91,10 @@ const setSingleData = async (data) => {
     let productAccordionInner =
         `
         <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseTwo">
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
                     Highlights
                 </button>
             </h2>
@@ -289,7 +290,7 @@ async function cartController() {
     console.log(status);
     if (status || !status) {
         window.location.href = "/addToCart"
-        removeBtnSpinner(cartBtn, "add to cart")
+        removeBtnSpinner(cartBtn, "Cart")
     }
 
 }

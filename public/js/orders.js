@@ -1,8 +1,8 @@
 
 const ordersContainer = document.querySelector(".ordersContainer")
 async function getOrders() {
-    const { isLogged, user } = await isUserLogged(token)
-    if (!isLogged) {
+    const {isLogged,user } = await getUser(userId)
+    if (!user) {
         return
     }
     const action = "getOrders"

@@ -50,7 +50,7 @@ const searchProducts = async (searchquery = "hc verama") => {
     }
 }
 
-createUserStatus()
+
 async function createUserStatus() {
     let userStatusInner = ""
     const { user } = await getUser(userId)
@@ -67,7 +67,7 @@ async function createUserStatus() {
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link mx-2 text-uppercase" href="#">
+        <a class="nav-link mx-2 text-uppercase" href="/addToCart">
           <i class="fa-solid fa-cart-shopping me-1 position-relative"><span
               class="badge rounded-pill badge-notification bg-danger position-absolute"
               style="top: -12px;left:8px">${user.cart.length}</span>
@@ -75,7 +75,7 @@ async function createUserStatus() {
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link mx-2 text-uppercase" href="/account/page?action=profile"><i class="fa-solid fa-circle-user me-1"></i></a>
+        <a class="nav-link mx-2 text-uppercase" href="/account/page?action=profile&&target=${user._id}"><i class="fa-solid fa-circle-user me-1"></i></a>
       </li>`
     }
     else {

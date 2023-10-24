@@ -1,5 +1,5 @@
 const category = window.location.search.split("=")[1]
-
+createUserStatus()
 console.log(category);
 setEvents(".search", "keypress", inputSearch)
 const setData = async () => {
