@@ -19,16 +19,13 @@ signupForm.addEventListener("submit", async function dosignup(event) {
         }
     }).then(function (respsoe) {
         return respsoe.json()
-    }).then(function ({token}) {
-        console.log(token);
-        if (token) {
-            const item = {
-                jwtToken: token
-            }
-            console.log("jwt", item);
-            localStorage.setItem("token", JSON.stringify(item))
-            removeBtnSpinner(signupBtn,"Sign")
-            window.location.href = `${redirectUrl}`;
+    }).then(function ({user}) {
+        if (user._id) {
+            const redirectUrl = redirectString.get("origin")
+            console.log("jwt", user._id);
+            localStorage.setItem("userId", encodeURIComponent(user._id))
+            removeBtnSpinner(signupBtn,"Sign In")
+            window.location.replace(`${redirectUrl}`);
         }
     }).catch(function (erro) {
         console.log(erro);

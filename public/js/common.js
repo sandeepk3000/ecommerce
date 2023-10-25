@@ -1,20 +1,20 @@
 
-// const socketCommon = io("/cartQuantity")
+const socketCommon = io("/cartQuantity")
 const header = document.querySelector("#header")
 const authentication_wrapper = document.querySelector(".authentication-wrapper")
 const userStatus = document.querySelector(".userStatus")
 const search = document.querySelector(".search")
 const userId = localStorage.getItem("userId")
 let isButtonDisabled = false
-const urlString = new URL(window.location.href) 
+const urlString = new URL(window.location.href)
 const pathAfterDomain = urlString.pathname
 console.log(pathAfterDomain);
-// socketCommon.on("currentQuantity", (updatedquantity) => {
+setEvents("#searchInput","click",inputSearch)
+socketCommon.on("currentQuantity", (updatedquantity) => {
+    const cartQuantity = document.querySelector(".cartQuantity")
+    cartQuantity.textContent = updatedquantity
 
-//     const cartItems = document.querySelector(".rounded-pill")
-//     cartItems.textContent = updatedquantity
-
-// })
+})
 async function getUser(userId) {
     if (userId) {
         const data = await fetch(`/account/getUser?userId=${decodeURIComponent(userId)}`, {
@@ -32,6 +32,7 @@ async function getUser(userId) {
         return { isLogged: false }
     }
 }
+
 function inputSearch(event) {
     if (event.key === "Enter" && search.value.length >= 2) {
         window.location.href = `/singleProducts?cat=${search.value.trim()}`
@@ -55,8 +56,9 @@ async function createUserStatus() {
     let userStatusInner = ""
     const { user } = await getUser(userId)
     console.log(user);
-    // socketCommon.emit("quantityRoom", user._id)
+   
     if (user) {
+        socketCommon.emit("quantityRoom",user._id)
         userStatusInner =
             `<li class="nav-item">
         <a class="nav-link mx-2 text-uppercase" href="#">
@@ -69,7 +71,7 @@ async function createUserStatus() {
       <li class="nav-item">
         <a class="nav-link mx-2 text-uppercase" href="/addToCart">
           <i class="fa-solid fa-cart-shopping me-1 position-relative"><span
-              class="badge rounded-pill badge-notification bg-danger position-absolute"
+              class="badge rounded-pill cartQuantity badge-notification bg-danger position-absolute"
               style="top: -12px;left:8px">${user.cart.length}</span>
           </i>
         </a>
@@ -92,10 +94,12 @@ async function createUserStatus() {
             </li>`
     }
     userStatus.innerHTML = userStatusInner
+   
 }
 async function cartQuantity(action, userId) {
-    // const carValue = document.querySelector(".rounded-pill")
-    let currentQuantity = 9
+    const cartQuantitySpan = document.querySelector(".cartQuantity")
+    let cartQuantity = cartQuantitySpan.textContent
+    let currentQuantity = parseInt(cartQuantity)
     if (action === "add") {
         ++currentQuantity
     } else {
@@ -103,12 +107,12 @@ async function cartQuantity(action, userId) {
             --currentQuantity
         }
     }
-    // cartItems.textContent = currentQuantity
+    cartQuantitySpan.textContent = currentQuantity
     const updatedInfo = {
         userId: userId,
         updatedquantity: currentQuantity
     }
-    // socketCommon.emit("updateQuantity", updatedInfo)
+    socketCommon.emit("updateQuantity", updatedInfo)
     return
 }
 

@@ -196,7 +196,7 @@ function setRequirements(data, action, container) {
         
         </div>
         <div class="custom_btn_wrapper_1">
-                    <button type="submit" class="custom_btn_1" id="pay" >BUY</button>
+                    <button type="submit" class="btn btn-primary" id="pay" >BUY</button>
                     <span class="loading_effect"></span>
                 </div>
             
@@ -378,7 +378,7 @@ function getOrderItems() {
                 subTotal: parseInt(productCard.querySelector(".quantityShow").textContent) * parseInt(productCard.querySelector(".itemPrice").textContent) || 100
             })
         } else {
-            return []
+            return null
         }
     })
     console.log("getOder ");
@@ -391,9 +391,10 @@ function paymentController(card, user, stripe) {
     setEvents("#pay", "click", amountPay)
     async function amountPay(event) {
         const orderItems = getOrderItems()
-        if (orderItems.length === 0 || buttonDisabled) {
+        if (!orderItems || buttonDisabled) {
             return "order is not available"
         }
+        addBtnSpinner(event.target)
         console.log("paymentcontr");
         buttonDisabled = true
         const shippingAddress = user.addresses.find((address) => address.type === "Home")
@@ -408,8 +409,13 @@ function paymentController(card, user, stripe) {
             console.log(typeof key);
             billingAddress[key] = value
         }
+        const garbegeDate = new Date()
+        const date = String(garbegeDate.getDate()).padStart(2, "0")
+        const month = String(garbegeDate.getMonth() + 1).padStart(2, "0")
+        const year = String(garbegeDate.getFullYear()).padStart(2, "0")
+        const orderTime = `${date}-${month}-${year}`
         const orderDetails = {
-            orderDate: Date.now(),
+            orderDate: orderTime,
             orderTotal: orderItems.length,
             shippingAddress: shippingAddress,
             billingAddress: billingAddress,
@@ -478,7 +484,7 @@ function paymentController(card, user, stripe) {
                     console.log("2");
                     const body = orderDetails
                     const res = await updateUser(action, user._id, body, method)
-                    await createOrder(user._id, { ...orderDetails, orderID: res.orderID })
+                    await createOrder(user._id, { ...orderDetails, orderID: res.orderID }, event.target)
                     return;
                 }
             })
@@ -508,7 +514,7 @@ function updateUser(action, userId, body, method) {
         })
 }
 
-async function createOrder(customerID, orderDetails) {
+async function createOrder(customerID, orderDetails, btn) {
     const action = "createOrder"
     console.log(action);
     console.log(action, customerID)
@@ -522,13 +528,13 @@ async function createOrder(customerID, orderDetails) {
     })
     console.log(orderRes);
     const order = await orderRes.json()
-    await createDelivery(order, customerID)
+    await createDelivery(order, customerID, btn)
     return;
 }
 
 
 
-async function createDelivery(order, customerID) {
+async function createDelivery(order, customerID, btn) {
     console.log("create", order);
     const geolocation = {
         longitude: -73.9924,
@@ -563,6 +569,7 @@ async function createDelivery(order, customerID) {
     if (data.delivery_id) {
         localStorage.setItem("orderInfo", JSON.stringify({ orderId: order.orderID, status: "process" }))
         buttonDisabled = false
+        removeBtnSpinner(btn, "BUY")
         window.location.replace(`/orderDetails?orderID=${order.orderID}`)
         return;
     }

@@ -1,6 +1,7 @@
 
 const cartItemsBuy = document.querySelector(".cartItemsBuy")
 const quantityShow = document.querySelector(".quantityShow")
+createUserStatus()
 const products = document.querySelector("#products")
 setEvents("#placeOrder", "click", orderPlace)
 setEvents(".search", "keypress", inputSearch)
@@ -98,7 +99,7 @@ function priceController(target, unitPrice, quantity) {
     const priceTd = document.querySelector(".total_price")
     console.log(totalPrice);
     priceTd.textContent = totalPrice.toLocaleString()
-    // document.querySelector(".discount").textContent = `-${quantity * discount}`
+    document.querySelector(".discount").textContent = `-${quantity * discount}`
 }
 
 

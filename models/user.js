@@ -96,13 +96,7 @@ const creatStructure = new mongoose.Schema({
         default: []
     },
     orderHistory:[String],
-    accountCreationDate: {
-        type: Date,
-        default: new Date()
-    }
-
-
-})
+},{timestamps:true})
 
 const newLocal = "user";
 module.exports = mongoose.model(newLocal, creatStructure);
