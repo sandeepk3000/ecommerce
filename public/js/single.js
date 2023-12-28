@@ -277,7 +277,7 @@ function setProductProgressRating(reviews, totalRating) {
         product_progress.innerHTML += rating_progressInner
         return reviews
     }, reviews)
-   
+
 }
 
 
@@ -310,72 +310,70 @@ function buyBottonController(event) {
 let ratingModel;
 function openReviewForm(event) {
     const target = event.target;
-    target.parentElement.innerHTML+=
-        ` <div class="modal fade" id="ratingModel" tabindex="-1" aria-labelledby="ratingModelLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" id="closeReviewForm" data-bs-dismiss="model"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mx-0 mx-sm-auto">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form class="px-2" action="">
-                                        <p class="text-center"><strong>How do you rate customer support:</strong></p>
-
-                                        <ul class="h2 rating justify-content-center pb-3 d-flex" style="list-style: none;"
-                                            data-mdb-toggle="rating">
-                                            <li>
-                                                <i class="far fa-star fa-sm text-primary" title="Bad"></i>
-                                            </li>
-                                            <li>
-                                                <i class="far fa-star fa-sm text-primary" title="Poor"></i>
-                                            </li>
-                                            <li>
-                                                <i class="far fa-star fa-sm text-primary" title="OK"></i>
-                                            </li>
-                                            <li>
-                                                <i class="far fa-star fa-sm text-primary" title="Good"></i>
-                                            </li>
-                                            <li>
-                                                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
-                                            </li>
-                                        </ul>
-
-                                        <p class="text-center"><strong>What could we improve?</strong></p>
-
-                                        <!-- Message input -->
-                                        <div class="form-outline mb-4">
-                                            <textarea class="form-control" id="form4Example6" rows="4"></textarea>
-                                            <label class="form-label" for="form4Example6">Your feedback</label>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
-                    </div> -->
-                </div>
+    target.parentElement.innerHTML +=
+        ` <div class="modal fade" id="myModal" aria-hidden="true" aria-labelledby="myModalLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>`
-        
-    ratingModel = new bootstrap.Modal(document.getElementById('ratingModel'))
-    ratingModel.show()
-    setEvents("#closeReviewForm","click",closeReviewForm)
-    // setTimeout(()=>{
-    //     ratingModel.
-    // },3000)
+            <div class="modal-body">
+              <div class="mx-0 mx-sm-auto">
+                <div class="card">
+                  <div class="card-body">
+                    <form class="px-2" action="">
+                      <p class="text-center"><strong>How do you rate customer support:</strong></p>
     
+                      <ul class="h2 rating justify-content-center pb-3 d-flex" style="list-style: none;"
+                        data-mdb-toggle="rating">
+                        <li>
+                          <i class="far fa-star fa-sm text-primary" title="Bad"></i>
+                        </li>
+                        <li>
+                          <i class="far fa-star fa-sm text-primary" title="Poor"></i>
+                        </li>
+                        <li>
+                          <i class="far fa-star fa-sm text-primary" title="OK"></i>
+                        </li>
+                        <li>
+                          <i class="far fa-star fa-sm text-primary" title="Good"></i>
+                        </li>
+                        <li>
+                          <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                        </li>
+                      </ul>
+    
+                      <p class="text-center"><strong>What could we improve?</strong></p>
+    
+                      <!-- Message input -->
+                      <div class="form-outline mb-4">
+                        <textarea class="form-control" required id="form4Example6" rows="4"></textarea>
+                        <label class="form-label" for="form4Example6">Your feedback</label>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" data-bs-dismiss="modal" aria-label="Close"
+                          class="btn btn-primary">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+    
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+        </div>
+      </div>`
+
+    // ratingModel = new bootstrap.Modal(document.getElementById('ratingModel'))
+    // setEvents("#closeReviewForm", "click", closeReviewForm)
+    // setTimeout(() => {
+    //     ratingModel.show()
+    // }, 3000)
+
 }
-function closeReviewForm(event){
+function closeReviewForm(event) {
     ratingModel.dispose()
 }
 

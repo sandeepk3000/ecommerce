@@ -5,21 +5,41 @@ const deliverySchema = new mongoose.Schema({
         unique: true,
         require: true
     },
-    order_id: String,
-    customer_name: String,
+    order_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order"
+    },
+    driverID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "DeliveryBoy"
+    },
+    customer_name:{
+        type:String
+    },
     customer_contact: [String],
     delivery_address: {
         type: Object
     },
-    courier_company: String,
-    driverID: String,
-    delivery_notes: String,
+    courier_company:{
+        type:String
+    },
+    delivery_notes:{
+        type:String
+    },
     delivery_cost: Number,
-    payment_status: String,
+    payment_status:{
+        type:String
+    },
     singnature_received: Boolean,
-    feedback: String,
-    delivery_data_time: String,
-    estimated_delivery_time: String,
+    feedback:{
+        type:String
+    },
+    delivery_data_time:{
+        type:String
+    },
+    estimated_delivery_time:{
+        type:String
+    },
     delivery_total: {
         type: Number
     },
@@ -29,7 +49,8 @@ const deliverySchema = new mongoose.Schema({
             [
                 {
                     product_id: {
-                        type: String
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "Product"
                     },
                     product_name: {
                         type: String
@@ -89,5 +110,5 @@ const deliverySchema = new mongoose.Schema({
     }
 
 })
-const collection = "delivery";
+const collection = "Delivery";
 module.exports = mongoose.model(collection, deliverySchema);

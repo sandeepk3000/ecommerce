@@ -5,21 +5,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <style>
+    /* .red {
+      color: red;
+      font-size: 17px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      background-color: rgb(135, 225, 135);
+    }
+
+    .card {
+      width: 200px;
+      height: 300px;
+      box-shadow: 2px 2px 2px 2px gray;
+      border-radius: 3px;
+    } */
+  </style>
 </head>
 
 <body>
   <!-- Section: Timeline -->
-  <div class="container">
+  <div class="modal fade" id="myModal" aria-hidden="true" aria-labelledby="myModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mx-0 mx-sm-auto">
+            <div class="card">
+              <div class="card-body">
+                <form class="px-2" action="">
+                  <p class="text-center"><strong>How do you rate customer support:</strong></p>
 
+                  <ul class="h2 rating justify-content-center pb-3 d-flex" style="list-style: none;"
+                    data-mdb-toggle="rating">
+                    <li>
+                      <i class="far fa-star fa-sm text-primary" title="Bad"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-primary" title="Poor"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-primary" title="OK"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-primary" title="Good"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                    </li>
+                  </ul>
 
-    
+                  <p class="text-center"><strong>What could we improve?</strong></p>
+
+                  <!-- Message input -->
+                  <div class="form-outline mb-4">
+                    <textarea class="form-control" required id="form4Example6" rows="4"></textarea>
+                    <label class="form-label" for="form4Example6">Your feedback</label>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" data-bs-dismiss="modal" aria-label="Close"
+                      class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   </div>
-  <!-- Section: Timeline -->
+
+  <a class="btn btn-primary" data-bs-toggle="modal" href="#myModal" role="button">Open first modal</a>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
   <script>
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+      keyboard: false
+    })
   </script>
 </body>
 
